@@ -20,14 +20,15 @@
       - Users who are designated as Miestro(Admin) or Groupie(User w/ Account) would have the ability to add music to the playlist.
         The user types in a song name and is given song choices to pick from. 
         The song picked by the user would be added to the playlist.
-        
-        The music would be added by searching for a particular song name. 
-        This song name entered by the user would be sent up to a youtube search engine and the first 5 results will be shown to the             user. 
-        The user then picks which video matches his/her song selection. 
    Actors:
       - Maistros (Users with Admin Privledges), and Groupies (Users with normal priviledges)
    Steps:
-      -
+      - User presses the "Add Song Button".
+        Users type in a song name into the search bar.
+        Song is searched on youtube and the user is given the first 5 video results to choose from.
+        Once the user selects the proper video the video url is sent to the database. 
+        The song is then added to the overall playlist, the song name comes from the Youtube Video title.
+        The song is ranked at the median (0 position) of the playlist and it's position in the playlist shows Name and current vote             score.
 - sequential playlist
     * priority queue
 - voting system
