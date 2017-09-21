@@ -29,7 +29,7 @@
         Once the user selects the proper video the video url is sent to the database. 
         The song is then added to the overall playlist, the song name comes from the Youtube Video title.
         The song is ranked at the median (0 position) of the playlist and it's position in the playlist shows Name and current vote             score.
-- sequential playlist
+- sequential playlist 
     * priority queue
 - voting system
     * up-vote
