@@ -16,6 +16,18 @@
     * store playlists
     * store users
 - add music
+   Description:
+      - Users who are designated as Miestro(Admin) or Groupie(User w/ Account) would have the ability to add music to the playlist.
+        The user types in a song name and is given song choices to pick from. 
+        The song picked by the user would be added to the playlist.
+        
+        The music would be added by searching for a particular song name. 
+        This song name entered by the user would be sent up to a youtube search engine and the first 5 results will be shown to the             user. 
+        The user then picks which video matches his/her song selection. 
+   Actors:
+      - Maistros (Users with Admin Privledges), and Groupies (Users with normal priviledges)
+   Steps:
+      -
 - sequential playlist
     * priority queue
 - voting system
