@@ -27,12 +27,12 @@
    * Actors:
       - Maistros (Users with Admin Privledges), and Groupies (Users with normal priviledges)
    * Steps:
-      1.User presses the "Add Song Button".
-      2.Users type in a song name into the search bar.
-      3.Song is searched on youtube and the user is given the first 5 video results to choose from.
-      4.Once the user selects the proper video the video url is sent to the database. 
-      5.The song is then added to the overall playlist, the song name comes from the Youtube Video title.
-      6.The song is ranked at the median (0 position) of the playlist and it's position in the playlist shows Name and current vote             score.
+      - User presses the "Add Song Button".
+      - Users type in a song name into the search bar.
+      - Song is searched on youtube and the user is given the first 5 video results to choose from.
+      - Once the user selects the proper video the video url is sent to the database. 
+      - The song is then added to the overall playlist, the song name comes from the Youtube Video title.
+      - The song is ranked at the median (0 position) of the playlist and it's position in the playlist shows Name and current vote             score.
 
 #### sequential playlist
     * Description:
