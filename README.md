@@ -35,17 +35,17 @@
       - The song is ranked at the median (0 position) of the playlist and it's position in the playlist shows Name and current vote             score.
 
 #### sequential playlist
-    * Description:
+    * Description
       - The music playlist would be based on a priority queue. This priority would be directly linked to the voting "score" of each             song. The song with the highest vote score would be moved to the top of the queue, the next ranking song would be below it, and         so on. As songs are played, they are removed from the queue and the next highest scored song takes its place.
     
     *Actors:
-        *Users, Admins, and Members.
+        - Users, Admins, and Members.
     
     *Steps:
-        1.Song is added to the queue. 
-        2.Song is placed at the 0 position of the queue (Below positive scored songs, above negative scored songs). 
-        3.Song is then voted on by the users and moved up and down the playlist priority qeue accordingly. 
-        4.The song eventually is played in the order of it's score, and then removed from the playlist.
+        - Song is added to the queue. 
+        - Song is placed at the 0 position of the queue (Below positive scored songs, above negative scored songs). 
+        - Song is then voted on by the users and moved up and down the playlist priority qeue accordingly. 
+        - The song eventually is played in the order of it's score, and then removed from the playlist.
     
 #### voting system
     * Description:
