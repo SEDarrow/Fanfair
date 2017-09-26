@@ -69,6 +69,15 @@
            4.Button loses functionality until the next song begins.
 
 #### audio output
+   * Description:
+      -Audio output will be on a hosted "Main" computer, this client machine will be connected to a audio system such as a surround sound system. This "Main" client will play music by using the youtube URL's entered by the users in the playlist. After the video is finished playing, it automatically requests the next song in the playlist and begins playing it. If the users vote to skip the song the video is ended and the next song in the playlist is requested and played. Should the playlist run out, there will be no songs playing. Audio is adjusted on the physical hardware (stereo system volume knob)
+   * Actors: Main computer connected to the stereo system.
+   * Steps: 
+         * 1.Users determine what computer will be the main computer for the audio playback.
+           2.Users connect computer to audio system via a AUX cable.
+           3.Users log into the site with the main computer.
+           4.Computer handles playing youtube videos added to the playlist as they are ranked in the playlist.
+           5.Should users vote to skip a song, the song is skipped and the next song is played.
 #### search engine
     * source from youtube
 #### user end GUI
