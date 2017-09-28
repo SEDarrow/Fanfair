@@ -122,10 +122,10 @@
     * Actors: Members, Admins.
     
     * steps: 
-         - A song is played from the playlist based off of its score (See "Sequential Playlist" Section.)
-         - A button on the "Now Playing" banner will allow users to re-add the song to the playlist.
-         - The button is pressed by the member/user and the song is added to the playlist with a score of "0".
-         - Button loses functionality until the next song begins.
+      - A song is played from the playlist based off of its score (See "Sequential Playlist" Section.)
+      - A button on the "Now Playing" banner will allow users to re-add the song to the playlist.
+      - The button is pressed by the member/user and the song is added to the playlist with a score of "0".
+      - Button loses functionality until the next song begins.
 
 #### 9. listen to playlist - audio output
    * Description:
@@ -154,7 +154,7 @@
    * spotify playlists
 #### 15. transfer playlist ownership
    * Description:
-      - A Maistro can transfer the ownership of a playlist to a Groupie.  The Groupie will become the Maistro of that playlist, and the Maistro will become a Groupie.
+      - A Maistro can transfer the ownership of a playlist to another Maistro.  The Maistro who originally owned the playlist will no longer have Maistro privledges on that playlist.  The Maistro who is sent the playlist would become the owner, and has Maistro privledges on that playlist (deleting playlist, deleting songs).
    * Actors: Maistro
    * Steps: 
       - Users presses the "Transfer Playlist Ownership" button
