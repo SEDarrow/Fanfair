@@ -153,3 +153,10 @@
    * youtube playlists
    * spotify playlists
 #### 15. transfer playlist ownership
+   * Description:
+      - A Maistro can transfer the ownership of a playlist to a Groupie.  The Groupie will become the Maistro of that playlist, and the Maistro will become a Groupie.
+   * Actors: Maistro
+   * Steps: 
+         - Users presses the "Transfer Playlist Ownership" button
+         - User is asked for the username to give the playlist to
+         - The playlist no longer appears in the users's playlist list, and it appears in the playlist list of the user it is transfered to
