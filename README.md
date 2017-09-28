@@ -150,13 +150,18 @@
 
 ## Low priority
 #### 14. import external playlists
-   * youtube playlists
-   * spotify playlists
+ * Description:
+      - A Maistro can load songs from another website's playlist (Youtube, Spotify, etc).  All of the songs from the external playlist are added to the Fanfair playlist.  If the external playlist is not from Youtube, the name of the song and artist's name is used to search Youtube, and the first video found is added to the playlist.
+   * Actors: Maistro
+   * Steps:
+    - User presses the "Load Playlist" button
+    - 
+      
 #### 15. transfer playlist ownership
    * Description:
-      - A Maistro can transfer the ownership of a playlist to another Maistro.  The Maistro who originally owned the playlist will no longer have Maistro privledges on that playlist.  The Maistro who is sent the playlist would become the owner, and has Maistro privledges on that playlist (deleting playlist, deleting songs).
+    - A Maistro can transfer the ownership of a playlist to another Maistro.  The Maistro who originally owned the playlist will no longer have Maistro privledges on that playlist.  The Maistro who is sent the playlist would become the owner, and has Maistro privledges on that playlist (deleting playlist, deleting songs).
    * Actors: Maistro
    * Steps: 
-      - Users presses the "Transfer Playlist Ownership" button
-      - User is asked for the username to give the playlist to
-      - The playlist no longer appears in the users's playlist list, and it appears in the playlist list of the user it is transfered to
+    - Users presses the "Transfer Playlist Ownership" button
+    - User is asked for the username to give the playlist to
+    - The playlist no longer appears in the users's playlist list, and it appears in the playlist list of the user it is transfered to
