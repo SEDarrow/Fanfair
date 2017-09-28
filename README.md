@@ -124,6 +124,7 @@
    * Description:
       -Audio output will be on a hosted "Main" computer, this client machine will be connected to a audio system such as a surround sound system. This "Main" client will play music by using the youtube URL's entered by the users in the playlist. After the video is finished playing, it automatically requests the next song in the playlist and begins playing it. If the users vote to skip the song the video is ended and the next song in the playlist is requested and played. Should the playlist run out, there will be no songs playing. Audio is adjusted on the physical hardware (stereo system volume knob)
    * Actors: Main computer connected to the stereo system.
+   
    * Steps: 
          - Users determine what computer will be the main computer for the audio playback.
          - Users connect computer to audio system via a AUX cable.
