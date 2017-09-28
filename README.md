@@ -144,7 +144,7 @@
    * Description:
       - Maistros can create multiple playlists, and fill them with songs to allow Groupies to vote on. In order to do this, thwy must first create the playlist.
    * Actors: Maistros
-   * Steps: 
+   * Steps:
          - User presses the "Create Playlist" button.
          - User is prompted to enter a playlist name
          - User is taken to a page where they can add songs and play the playlist
