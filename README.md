@@ -59,6 +59,13 @@
       - Once the correct username and password are entered, the user is taken to the playlist page and has Miestro and Groupie privledges
 
 #### 3. logout
+  * Description
+    - A user can logout, and will no longer be able to perform the actions of a Miestro or Groupie
+  * Actors:
+      - Maistros (Users with Admin Privledges), and Groupies (Users with normal priviledges)
+  * Steps:
+      - User presses the "Logout" Button
+      - User is taken to the Login page
 
 #### 4. add music
    * Description:
