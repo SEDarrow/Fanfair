@@ -150,18 +150,21 @@
 
 ## Low priority
 #### 14. import external playlists
- * Description:
-      - A Maistro can load songs from another website's playlist (Youtube, Spotify, etc).  All of the songs from the external playlist are added to the Fanfair playlist.  If the external playlist is not from Youtube, the name of the song and artist's name is used to search Youtube, and the first video found is added to the playlist.
-   * Actors: Maistro
-   * Steps:
-    - User presses the "Load Playlist" button
-    - 
+* Description:
+  - A Maistro can load songs from another website's playlist (Youtube, Spotify, etc).  All of the songs from the external playlist are added to the Fanfair playlist.  If the external playlist is not from Youtube, the name of the song and artist's name is used to search Youtube, and the first video found is added to the playlist.
+* Actors: Maistro
+* Steps:
+  - User presses the "Load Playlist" button
+  - User is asked to choose the app to load music from
+  - A popup will open with the app the user chose.  The user must choose a playlist to load.
+  - User presses the "Load Playlist" button at the bottom of the popup
+  - The songs from the external playlist are added to the Maistro's Fanfair playlist
       
 #### 15. transfer playlist ownership
-   * Description:
-    - A Maistro can transfer the ownership of a playlist to another Maistro.  The Maistro who originally owned the playlist will no longer have Maistro privledges on that playlist.  The Maistro who is sent the playlist would become the owner, and has Maistro privledges on that playlist (deleting playlist, deleting songs).
-   * Actors: Maistro
-   * Steps: 
-    - Users presses the "Transfer Playlist Ownership" button
-    - User is asked for the username to give the playlist to
-    - The playlist no longer appears in the users's playlist list, and it appears in the playlist list of the user it is transfered to
+* Description:
+  - A Maistro can transfer the ownership of a playlist to another Maistro.  The Maistro who originally owned the playlist will no longer have Maistro privledges on that playlist.  The Maistro who is sent the playlist would become the owner, and has Maistro privledges on that playlist (deleting playlist, deleting songs).
+* Actors: Maistro
+* Steps: 
+  - Users presses the "Transfer Playlist Ownership" button
+  - User is asked for the username to give the playlist to
+  - The playlist no longer appears in the users's playlist list, and it appears in the playlist list of the user it is transfered to
