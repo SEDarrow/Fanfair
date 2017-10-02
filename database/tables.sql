@@ -1,34 +1,29 @@
-CREATE TABLE `playlist` (
-  `pid` varchar(16),
-  PRIMARY KEY (`pid`)
-);
-
-CREATE TABLE `song` (
-  `url` varchar(128),
-  `pid` varchar(16),
-  `score` int(11),
-  PRIMARY KEY (`url`)
-);
-
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE `user` (
   `username` varchar(128),
   `password` varchar(128),
   `score` int(11),
   PRIMARY KEY (`username`)
 );
 
-CREATE TABLE `contains` (
+CREATE TABLE `playlist` (
   `pid` varchar(16),
-  `url` varchar(128),
-  PRIMARY KEY (`pid`,`url`),
-  FOREIGN KEY (`pid`) REFERENCES `playlist` (`pid`),
-  FOREIGN KEY (`url`) REFERENCES `song` (`url`)
+  `username` varchar(128),
+  PRIMARY KEY (`pid`,`username`),
+  FOREIGN KEY (`username`) REFERENCES `user` (`username`)
 );
 
-CREATE TABLE `owns` (
-  `username` varchar(128),
+CREATE TABLE `songInfo` (
+  `url` varchar(128),
+  `title` varchar(128),
+  PRIMARY KEY (`url`)
+);
+
+CREATE TABLE `song` (
+  `url` varchar(128),
   `pid` varchar(16),
-  PRIMARY KEY (`pid`,`username`),
-  FOREIGN KEY (`username`) REFERENCES `user` (`username`),
+  `upvotes` int(11),
+  `downvotes` int(11),
+  PRIMARY KEY (`url, pid`)
   FOREIGN KEY (`pid`) REFERENCES `playlist` (`pid`)
+  FOREIGN KEY (`url`) REFERENCES `songInfo` (`url`)
 );
