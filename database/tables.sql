@@ -2,6 +2,7 @@ CREATE TABLE `user` (
   `username` varchar(128),
   `password` varchar(128),
   `score` int,
+  `admin` bool,
   PRIMARY KEY (`username`)
 );
 
