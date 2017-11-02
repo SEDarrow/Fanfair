@@ -37,7 +37,7 @@
          */
     }
 
-    function update_current_song()
+    function update_current_song($uname, $pid)
     {
         /*
          * Description:
