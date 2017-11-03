@@ -2,6 +2,8 @@
 // user_functions.php
 // Description: "User" functions that pertain to the database
 
+//TODO: Change this file to a class
+
     function create_user($uname, $pword)
     {
         /*
