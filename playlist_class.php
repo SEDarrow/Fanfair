@@ -49,21 +49,21 @@ class Playlist {
 	function get_owner_username()
     {
         /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
+         * Description: Gets the playlist's owner username
+		 *
+		 * Returns: The owner username as a string
          */
+		 return $owner_username;
     }
 	
 	function get_current_song()
     {
         /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
+         * Description: Gets the playlist's current song
+		 *
+		 * Returns: The current song as Song object
          */
+		 return $current_song
     }
 
     function update_current_song($uname, $pid)
@@ -79,11 +79,11 @@ class Playlist {
 	function get_encore_score()
     {
         /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
+         * Description: Gets the playlist's encore score
+		 *
+		 * Returns: The encore score as an integer
          */
+		 return $encore_score;
     }
 
     function vote_encore()
