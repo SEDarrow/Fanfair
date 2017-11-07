@@ -1,10 +1,17 @@
 <?php 
-// playlist_functions.php
+// playlist_class.php
 // Description: "Playlist" functions that pertain to the database
 
-//TODO: Change this file to a class
-
-    function create_playlist($owner, $playlist_name)
+class Playlist {
+	private $owner_username;
+	private $current_song;
+	private $encore_score;
+	private $name;
+	private $uploaders;
+	private $song_list;
+	private $pid;
+	
+    function __construct($owner, $playlist_name)
     {
         /*
          * Description: Create the playlist in database.
@@ -38,8 +45,38 @@
          * |   Param    |   Type    |   Description     |
          */
     }
+	
+	function get_owner_username()
+    {
+        /*
+         * Description:
+         *
+         * Parameters:
+         * |   Param    |   Type    |   Description     |
+         */
+    }
+	
+	function get_current_song()
+    {
+        /*
+         * Description:
+         *
+         * Parameters:
+         * |   Param    |   Type    |   Description     |
+         */
+    }
 
     function update_current_song($uname, $pid)
+    {
+        /*
+         * Description:
+         *
+         * Parameters:
+         * |   Param    |   Type    |   Description     |
+         */
+    }
+	
+	function get_encore_score()
     {
         /*
          * Description:
@@ -58,4 +95,5 @@
          * |   Param    |   Type    |   Description     |
          */
     }
+}
 ?>

@@ -1,10 +1,15 @@
 <?php 
-// user_functions.php
+// user_class.php
 // Description: "User" functions that pertain to the database
 
-//TODO: Change this file to a class
-
-    function create_user($uname, $pword)
+ class User {
+	private $playlists;
+	private $username;
+	private $score;
+	private $current_playlist;
+	private $admin;
+	
+    function __construct($uname, $pword)
     {
         /*
          * Description:
@@ -43,7 +48,17 @@
          * |   Param    |   Type    |   Description     |
          */
     }
-
+	
+	function get_playlists()
+    {
+        /*
+         * Description:
+         *
+         * Parameters:
+         * |   Param    |   Type    |   Description     |
+         */
+    }
+	
     function update_current_playlist($playlist)
     {
         /*
@@ -53,4 +68,45 @@
          * |   Param    |   Type    |   Description     |
          */
     }
+	
+	function get_username()
+    {
+        /*
+         * Description:
+         *
+         * Parameters:
+         * |   Param    |   Type    |   Description     |
+         */
+    }
+	
+	function get_score()
+    {
+        /*
+         * Description:
+         *
+         * Parameters:
+         * |   Param    |   Type    |   Description     |
+         */
+    }
+	
+	function get_current_playlist()
+    {
+        /*
+         * Description:
+         *
+         * Parameters:
+         * |   Param    |   Type    |   Description     |
+         */
+    }
+	
+	function get_admin_status()
+    {
+        /*
+         * Description:
+         *
+         * Parameters:
+         * |   Param    |   Type    |   Description     |
+         */
+    }
+ }
 ?>
