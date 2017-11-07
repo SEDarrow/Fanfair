@@ -1,9 +1,11 @@
 <?php 
 // playlist_class.php
 // Description: "Playlist" functions that pertain to the database
-
+ require_once('song_class.php');
+ require_once('database/database_functions.php');
+ 
 class Playlist {
-	private $owner_username;
+	private $owner_username; 
 	private $current_song;
 	private $encore_score;
 	private $name;

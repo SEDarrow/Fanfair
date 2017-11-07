@@ -1,6 +1,7 @@
 <?php 
 // song_class.php
 // Description: "Song" functions that pertain to the database
+require_once('database/database_functions.php');
 
 class Song {
 	private $score;

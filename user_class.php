@@ -1,7 +1,9 @@
 <?php 
 // user_class.php
 // Description: "User" functions that pertain to the database
-
+ require_once('playlist_class.php');
+ require_once('database/database_functions.php');
+ 
  class User {
 	private $playlists;
 	private $username;
