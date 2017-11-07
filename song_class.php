@@ -32,41 +32,41 @@ class Song {
 	function get_score()
     {
         /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
+         * Description: Gets the song's score
+		 *
+		 * Returns: The score as an integer
          */
+		 return $score;
 	}
 	
 	function get_uploader()
     {
         /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
+         * Description: Gets the song's uploader
+		 *
+		 * Returns: The uploader username as a string
          */
+		 return $uploader;
 	}
 	
 	function get_url()
     {
         /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
+         * Description: Gets the song's url
+		 *
+		 * Returns: The url as a string
          */
+		 return $url;
 	}
 	
 	function get_title()
     {
         /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
+         * Description: Gets the song's title
+		 *
+		 * Returns: The title as a string
          */
+		 return $title;
 	}
 }
 ?>
