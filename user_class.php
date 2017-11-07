@@ -52,11 +52,11 @@
 	function get_playlists()
     {
         /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
+         * Description: Gets the user's playlists
+		 *
+		 * Returns: A list of playlist objects
          */
+		 return $playlists;
     }
 	
     function update_current_playlist($playlist)
@@ -72,41 +72,41 @@
 	function get_username()
     {
         /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
+         * Description: Gets the user's username
+		 *
+		 * Returns: The username as a string
          */
+		 return $username;
     }
 	
 	function get_score()
     {
         /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
+         * Description: Gets the user's score
+		 *
+		 * Returns: The score as an integer
          */
+		 return $score;
     }
 	
 	function get_current_playlist()
     {
         /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
+         * Description: Gets the playlist the user is currently listening to
+		 *
+		 * Returns: The current playlist as a playlist object
          */
+		 return $current_playlist;
     }
 	
 	function get_admin_status()
     {
         /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
+         * Description: Gets the user's admin status
+		 *
+		 * Returns: A boolean, true if the user is an admin
          */
+		 return $admin;
     }
  }
 ?>
