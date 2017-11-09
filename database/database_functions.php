@@ -29,6 +29,27 @@
         $conn->close();
     }
     
+    function promote_to_admin($uname)
+    {
+        /*
+         * Description: Promote a user to admin
+         *
+         * Parameters:
+         * |   Param    |   Type    |   Description     |
+         * |   $uname   |   string  |   Username to promote to admin |
+         * 
+         * Returns: None
+         */
+        $conn = conn_start();
+
+        // sanitize input
+        $uname = sanitize($conn, $uname);
+        $query = "UPDATE user SET admin=1 WHERE username='$uname'";
+        executeQuery($conn, $query); 
+
+        $conn->close();
+    }
+
     function executeQuery($conn, $query)
     {
         /*
@@ -47,8 +68,8 @@
 
         // if no result, MySQL Error.  Close connection
         if (!$result) {
-            echo "$conn->error";
-            $conn->close();
+            echo "DEBUG:  $conn->error";
+            /* $conn->close(); */
             return 1; 
         }
         

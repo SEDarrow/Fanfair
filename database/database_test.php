@@ -9,5 +9,9 @@ require_once('database_functions.php');
                   VALUES('Drake', 'banana', 0, false)");
     */
     
-    //create_user("admin", "admin");
+    create_user("admin", "admin");
+    create_user("Jimmy", "test");
+    create_user("Sara", "test");
+    create_user("Landon", "banana");
+    promote_to_admin("admin");
 ?>
