@@ -2,7 +2,7 @@
 // database_functions.php
 // Description: Functions that pertain to the mysql database
 
-    function executeQuery($query)
+    function executeQuery($conn, $query)
     {
         /*
          * Description: connect to database and execute query
@@ -16,37 +16,44 @@
          *          1 - Generic MySQL Error
          */
         $returnValue = array();
-
-        require 'login.php';
-        $conn = new mysqli($hn, $un, $pw, $db);
-        if ($conn->connect_error)
-            die($conn->connect_error);  // Need better error handling
-
         $result = $conn->query($query);
+
+        // if no result, MySQL Error.  Close connection
         if (!$result) {
-            /*
             $conn->close();
-            die($conn->error);  // Need better error handling
-            echo $conn->error; 
-             */
             return 1; 
         }
         
         // if result type is boolean, that means it was not a select query
         if (gettype($result) == 'boolean') 
         {
-            /* echo $result; */
             return 0;
         }
 
+        // get populate return array
         while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
             $returnValue[] = $row;
         }
         
+        // close result
         $result->close();
-        $conn->close();
         
         return $returnValue;
+    }
+ 
+    function conn_start();
+    {
+        /*
+         * Description: Connect to the Database
+         * Parameters: None
+         * Returns: mysqli->conn; 
+         */ 
+        require 'login.php';
+        $conn = new mysqli($hn, $un, $pw, $db);
+        if ($conn->connect_error)
+            die($conn->connect_error);  // Need better error handling
+
+        return $conn; 
     }
 
 	function sanitize($conn, $string) {
