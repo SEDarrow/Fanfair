@@ -2,7 +2,7 @@
 // database_functions.php
 // Description: Functions that pertain to the mysql database
 
-    function executeQuery($conn, $query)
+   function executeQuery($conn, $query)
     {
         /*
          * Description: connect to database and execute query
@@ -41,19 +41,19 @@
         return $returnValue;
     }
  
-    function conn_start();
-    {
+   function conn_start()
+   {
         /*
          * Description: Connect to the Database
          * Parameters: None
          * Returns: mysqli->conn; 
          */ 
-        require 'login.php';
-        $conn = new mysqli($hn, $un, $pw, $db);
-        if ($conn->connect_error)
-            die($conn->connect_error);  // Need better error handling
+       require('login.php');
+       $conn = new mysqli($hn, $un, $pw, $db);
+       if ($conn->connect_error)
+           die($conn->connect_error);  // Need better error handling
 
-        return $conn; 
+       return $conn; 
     }
 
 	function sanitize($conn, $string) {

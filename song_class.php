@@ -2,42 +2,95 @@
 // song_class.php
 // Description: "Song" functions that pertain to the database
 require_once('database/database_functions.php');
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// TODO: add comments
+// TODO: add error handling
 
 class Song {
-	private $score;
 	private $uploader;
 	private $url;
 	private $title;
 	private $sid;
+	private $pid;
 	
-    function __construct($url, $song_title, $uploader)
+    function __construct($url, $song_title, $uploader, $pid)
     {
-        /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
-         */
-    }
+	$conn = conn_start();
 
-    function vote($up)
-    {
-        /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
-         */
+        $this->url = sanitize($conn, $url);
+	$this->title = sanitize($conn, $song_title);
+	$this->uploader = sanitize($conn, $uploader);
+	$this->pid = sanitize($conn, $pid);
+		
+	// see if the song is in the database
+	$result = executeQuery($conn, "SELECT * FROM song WHERE url='$this->url'");
+		
+	// add song to database if it is not already there
+	if (sizeof($result) == 0) {
+		$result = executeQuery($conn, "INSERT INTO song (sid, url, title) SELECT MAX(sid)+1, '$this->url', '$this->title' FROM song");
+		$result = executeQuery($conn, "SELECT * FROM song WHERE url='$this->url'");
 	}
 	
-	function get_score()
-    {
-        /*
-         * Description: Gets the song's score
-		 *
-		 * Returns: The score as an integer
-         */
-		 return $score;
+	// save the song's sid
+	$this->sid = $result[0]['sid'];
+
+	// see if the playlist contains the song in the database
+	$result = executeQuery($conn, "SELECT * FROM playlist_contains_song WHERE sid='$this->sid' AND pid='$this->pid'");
+
+	// add song to the playlist in database if it is not already there
+	if (sizeof($result) == 0) {
+		$query = "INSERT INTO playlist_contains_song (pid, sid, upvote, downvote, encore, uploader) ";
+		$query .= "VALUES ('$this->pid', '$this->sid', 0, 0, 0, '$this->uploader')";
+		$result = executeQuery($conn, $query);
+	}
+
+	$conn->close();
+    }
+
+	function vote($up) {
+		$conn = conn_start();
+
+    		if ($up) executeQuery($conn, "UPDATE playlist_contains_song SET upvotes = upvotes + 1 WHERE pid = '$this->pid' AND sid = '$this->sid'");
+		else executeQuery($conn, "UPDATE playlist_contains_song SET downvotes = downvotes + 1 WHERE pid = '$this->pid' AND sid = '$this->sid'");
+
+		$conn->close();
+	}
+
+	function vote_encore() {
+		$conn = conn_start();
+
+    		executeQuery($conn, "UPDATE playlist_contains_song SET encore = encore + 1 WHERE pid = '$this->pid' AND sid = '$this->sid'");
+
+		$conn->close();
+	}
+	
+	function get_upvotes()
+        {
+		$conn = conn_start();
+    		$result = executeQuery($conn, "SELECT upvotes FROM playlist_contains_song WHERE pid = '$this->pid' AND sid = '$this->sid'");
+		$conn->close();
+
+		return $result[0]['upvotes'];
+	}
+
+	function get_downvotes()
+        {
+		$conn = conn_start();
+    		$result = executeQuery($conn, "SELECT downvotes FROM playlist_contains_song WHERE pid = '$this->pid' AND sid = '$this->sid'");
+		$conn->close();
+
+		return $result[0]['downvotes'];
+	}
+
+	function get_encore()
+        {
+		$conn = conn_start();
+    		$result = executeQuery($conn, "SELECT encore FROM playlist_contains_song WHERE pid = '$this->pid' AND sid = '$this->sid'");
+		$conn->close();
+
+		return $result[0]['encore'];
 	}
 	
 	function get_uploader()
