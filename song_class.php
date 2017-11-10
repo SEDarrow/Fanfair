@@ -19,7 +19,7 @@ class Song {
     {
 	$conn = conn_start();
 
-        $this->url = sanitize($conn, $url);
+    $this->url = sanitize($conn, $url);
 	$this->title = sanitize($conn, $song_title);
 	$this->uploader = sanitize($conn, $uploader);
 	$this->pid = sanitize($conn, $pid);
@@ -29,25 +29,13 @@ class Song {
 		
 	// add song to database if it is not already there
 	if (sizeof($result) == 0) {
-		$result = executeQuery($conn, "INSERT INTO song (sid, url, title) SELECT MAX(sid)+1, '$this->url', '$this->title' FROM song");
+		$result = executeQuery($conn, "INSERT INTO song (url, title) VALUES ('$this->url', '$this->title')");
 		$result = executeQuery($conn, "SELECT * FROM song WHERE url='$this->url'");
-	}
-	
-	// save the song's sid
-	$this->sid = $result[0]['sid'];
-
-	// see if the playlist contains the song in the database
-	$result = executeQuery($conn, "SELECT * FROM playlist_contains_song WHERE sid='$this->sid' AND pid='$this->pid'");
-
-	// add song to the playlist in database if it is not already there
-	if (sizeof($result) == 0) {
-		$query = "INSERT INTO playlist_contains_song (pid, sid, upvote, downvote, encore, uploader) ";
-		$query .= "VALUES ('$this->pid', '$this->sid', 0, 0, 0, '$this->uploader')";
-		$result = executeQuery($conn, $query);
 	}
 
 	$conn->close();
     }
+	
 
 	function vote($up) {
 		$conn = conn_start();
