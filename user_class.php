@@ -11,7 +11,7 @@
 	private $current_playlist;
 	private $admin;
 	
-    function __construct($uname, $pword)
+    function __construct($uname)
     {
         /*
          * Description:
@@ -19,6 +19,39 @@
          * Parameters:
          * |   Param    |   Type    |   Description     |
          */
+        // start connection
+        $conn = conn_start();
+
+        // string sanitation
+        $uname = sanitize($conn, $uname);
+        /*
+        $pword = sanitize($conn, $pword);
+
+        // password salts
+        $salt1 = "j*H2!";
+        $salt2 = "9@l#o";
+        $pword_hashed = hash('ripemd128', "$salt1$pword$salt2");
+         */
+
+        // get user data
+        $query = "SELECT * FROM user WHERE username='$uname'"; 
+        $user_data = executeQuery($conn, $query); 
+        if (count($results) == 0) // username and password dont match
+        {
+            die("Incorrect Username/Password");
+        }
+
+        // get user's playlists
+        $query = "SELECT * FROM playlist WHERE username='$uname'";
+        $playlists = executeQuery($conn, $query); 
+
+        $conn->close();  // done with database
+
+        $this->username = $uname;
+        $this->score = user_data["score"]; 
+        $this->admin = user_data["admin"]; 
+        $this->playlists;
+        $this->current_playlist; 
     }
 
     function vote($song, $up)
@@ -43,12 +76,18 @@
 
     function add_playlist($playlist_name)
     {
-        /*
+        /* TODO: TEST
          * Description:
          *
          * Parameters:
          * |   Param    |   Type    |   Description     |
          */
+        $conn = conn_start();
+        $playlist_name = sanitize($conn, $playlist_name); 
+        $query = "INSERT playlist(`add`, username, playlist_name)
+                  VALUE(1, $username, $playlist_name)";
+        executeQuery($conn, $query); 
+        $conn->close();
     }
 	
 	function get_playlists()

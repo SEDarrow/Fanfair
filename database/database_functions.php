@@ -2,7 +2,55 @@
 // database_functions.php
 // Description: Functions that pertain to the mysql database
 
-   function executeQuery($conn, $query)
+    function create_user($uname, $pword)
+    {
+        /*
+         * Description: Add user to database
+         * Parameters:
+         * |   Param    |   Type    |   Description     |
+         * Returns: None
+         */
+        $conn = conn_start();
+
+        // sanitize input
+        $uname = sanitize($conn, $uname);
+        $pword = sanitize($conn, $pword); 
+
+        // salt pword
+        $salt1 = "j*H2!";
+        $salt2 = "9@l#o";
+        $pword_hashed = hash('ripemd128', "$salt1$pword$salt2");
+
+        // default score to 0 and admin flag to false
+        $query = "INSERT user(username, password, score, admin) VALUES('$uname', '$pword_hashed', 0, false)";
+        /* echo "$query"; // for debugging */
+        executeQuery($conn, $query); 
+
+        $conn->close();
+    }
+    
+    function promote_to_admin($uname)
+    {
+        /*
+         * Description: Promote a user to admin
+         *
+         * Parameters:
+         * |   Param    |   Type    |   Description     |
+         * |   $uname   |   string  |   Username to promote to admin |
+         * 
+         * Returns: None
+         */
+        $conn = conn_start();
+
+        // sanitize input
+        $uname = sanitize($conn, $uname);
+        $query = "UPDATE user SET admin=1 WHERE username='$uname'";
+        executeQuery($conn, $query); 
+
+        $conn->close();
+    }
+
+    function executeQuery($conn, $query)
     {
         /*
          * Description: connect to database and execute query
@@ -20,7 +68,8 @@
 
         // if no result, MySQL Error.  Close connection
         if (!$result) {
-            $conn->close();
+            echo "DEBUG:  $conn->error";
+            /* $conn->close(); */
             return 1; 
         }
         
@@ -40,7 +89,7 @@
         
         return $returnValue;
     }
- 
+
    function conn_start()
    {
         /*
