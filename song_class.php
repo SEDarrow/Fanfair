@@ -14,7 +14,7 @@ class Song {
 	private $title;
 	private $sid;
 	private $pid;
-	s
+
     function __construct($url, $uploader, $pid, $song_title)
     {
 	$conn = conn_start();

@@ -11,6 +11,7 @@ class Playlist {
 	private $pid;
 	private $current_song;
 	private $encore_score;
+	private $song_list;
 	
     function __construct($owner, $pid)
     {
@@ -34,11 +35,17 @@ class Playlist {
 	$conn->close();
     }
 
+    // song parameter is sid
     function remove_song($song)
     {
        	$conn = conn_start();
 	executeQuery($conn, "DELETE FROM playlist_contains_song WHERE sid='$song' AND pid='$this->pid'");
 	$conn->close();
+    }
+
+    function remove_current_song() {
+	$this->update_current_song();
+    	$this->remove_song($this->current_song->get_sid());
     }
 	
     function get_owner_username()
@@ -55,20 +62,45 @@ class Playlist {
     function update_current_song()
     {
 	$conn = conn_start();
-    	$result = executeQuery($conn, "SELECT sid, title MAX(upvotes - downvotes) FROM playlist_contains_song WHERE pid = '$this->pid'");
+    	$result = executeQuery($conn, "SELECT url, title, uploader FROM playlist_contains_song P, song S WHERE upvotes-downvotes = (SELECT MAX(upvotes - downvotes) FROM playlist_contains_song WHERE pid = $this->pid) AND pid = $this->pid AND P.sid = S.sid");
 	$conn->close();
 
-	$sid = result[0]["sid"];
-	$title = result[0]["title"];
-    	$uploader = "admin"; // TODO:this
+	// get the last element in the array (or the song that has been in the database the longest)
+	$url = $result[0]["url"];
+	$title = $result[0]["title"];
+    	$uploader = $result[0]["uploader"];
 
-	$this->current_song = new Song($sid, $uploader, $this->pid, $title);
+	$this->current_song = new Song($url, $uploader, $this->pid, $title);
+    }
+
+    function update_song_list() 
+    {
+	$conn = conn_start();
+    	$result = executeQuery($conn, "SELECT * FROM playlist_contains_song P, song S WHERE pid = $this->pid AND P.sid = S.sid ORDER BY (upvotes - downvotes) DESC");
+	$conn->close();
+
+	$songs = [];
+	foreach($result as $song) {
+		$url = $song["url"];
+		$uploader = $song["uploader"];
+		$pid = $this->pid;
+		$title = $song["title"];
+		
+		array_push($songs, new Song($url, $uploader, $pid, $title));
+	}
+	$this->song_list = $songs;
+    }
+
+    // returns a list of song objects
+    function get_song_list() {
+    	$this->update_song_list();
+	return $this->song_list; 
     }
 	
     function get_encore_score()
     {
 	$this->update_current_song();
-	return $this->current_song->get_encore_score();
+	return $this->current_song->get_encore();
     }
 
     function vote_encore()
