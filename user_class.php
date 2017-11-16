@@ -36,52 +36,34 @@
         // get user data
         $query = "SELECT * FROM user WHERE username='$uname'"; 
         $user_data = executeQuery($conn, $query); 
-        if (count($results) == 0) // username and password dont match
+        if (count($user_data) == 0) // username and password dont match
         {
             die("Incorrect Username/Password");
         }
 
         // get user's playlists
         $query = "SELECT * FROM playlist WHERE username='$uname'";
-        $playlists = executeQuery($conn, $query); 
+        $this->playlists = executeQuery($conn, $query); 
 
         $conn->close();  // done with database
 
         $this->username = $uname;
-        $this->score = user_data["score"]; 
-        $this->admin = user_data["admin"]; 
-        $this->playlists;
-        $this->current_playlist; 
+        $this->score = $user_data[0]["score"]; 
+        $this->admin = $user_data[0]["admin"]; 
     }
 
     function vote($song, $up)
     {
-        /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
-         */
+	$this->current_playlist->vote($song, $up);
     }
 
     function vote_encore()
     {
-        /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
-         */
-    }
+	$this->current_playlist->vote_encore();
+    } 
 
     function add_playlist($playlist_name)
     {
-        /* TODO: TEST
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
-         */
         $conn = conn_start();
         $playlist_name = sanitize($conn, $playlist_name); 
         $query = "INSERT playlist(`add`, username, playlist_name)
@@ -90,64 +72,34 @@
         $conn->close();
     }
 	
-	function get_playlists()
+    function get_playlists()
     {
-        /*
-         * Description: Gets the user's playlists
-		 *
-		 * Returns: A list of playlist objects
-         */
-		 return $playlists;
+	return $this->playlists;
     }
 	
     function update_current_playlist($playlist)
     {
-        /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
-         */
+        $this->current_playlist = $playlist;
     }
 	
-	function get_username()
+    function get_username()
     {
-        /*
-         * Description: Gets the user's username
-		 *
-		 * Returns: The username as a string
-         */
-		 return $username;
+	 return $this->username;
     }
 	
-	function get_score()
+    function get_score()
     {
-        /*
-         * Description: Gets the user's score
-		 *
-		 * Returns: The score as an integer
-         */
-		 return $score;
+	return $this->score;
     }
 	
-	function get_current_playlist()
+    function get_current_playlist()
     {
-        /*
-         * Description: Gets the playlist the user is currently listening to
-		 *
-		 * Returns: The current playlist as a playlist object
-         */
-		 return $current_playlist;
+	return $this->current_playlist;
     }
 	
-	function get_admin_status()
+    function get_admin_status()
     {
-        /*
-         * Description: Gets the user's admin status
-		 *
-		 * Returns: A boolean, true if the user is an admin
-         */
-		 return $admin;
+	return $this->admin;
     }
  }
 ?>

@@ -5,97 +5,76 @@
  require_once('database/database_functions.php');
  
 class Playlist {
-	private $owner_username; 
-	private $current_song;
-	private $encore_score;
+	private $owner; 
 	private $name;
 	private $uploaders;
-	private $song_list;
 	private $pid;
+	private $current_song;
+	private $encore_score;
 	
-    function __construct($owner, $playlist_name)
+    function __construct($owner, $pid)
     {
-        /*
-         * Description: Create the playlist in database.
-         *              Playlist should have a pid and a 
-         *              add flag.  Add flag allows other users
-         *              to add a song or not.
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
-         * |   $owner   |   string  |  Owner of the playlist |
-         * | $playlist_name | string |  Playlist's name |
-         */
+        $conn = conn_start();
+
+    	$this->owner = sanitize($conn, $owner);
+	$this->pid = sanitize($conn, $pid);
+		
+	$result = executeQuery($conn, "SELECT * FROM playlist WHERE username='$this->owner' AND pid='$this->pid'");
+
+	$conn->close();
+	$this->pid = $result[0]["pid"];
     }
 
-    function add_song($song, $uploader)
+    function add_song($url, $uploader, $title)
     {
-        /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
-         */
+        $song = new Song($url, $uploader, $this->pid, $title);
+	$sid = $song->get_sid();
+	$conn = conn_start();
+	executeQuery($conn, "INSERT INTO playlist_contains_song (pid, sid, uploader) VALUES ('$this->pid', '$sid', '$uploader')");
+	$conn->close();
     }
 
     function remove_song($song)
     {
-        /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
-         */
+       	$conn = conn_start();
+	executeQuery($conn, "DELETE FROM playlist_contains_song WHERE sid='$song' AND pid='$this->pid'");
+	$conn->close();
     }
 	
-	function get_owner_username()
+    function get_owner_username()
     {
-        /*
-         * Description: Gets the playlist's owner username
-		 *
-		 * Returns: The owner username as a string
-         */
-		 return $owner_username;
+	return $this->owner_username;
     }
 	
-	function get_current_song()
+    function get_current_song()
     {
-        /*
-         * Description: Gets the playlist's current song
-		 *
-		 * Returns: The current song as Song object
-         */
-		 return $current_song
+	$this->update_current_song();
+	return $this->current_song;
     }
 
-    function update_current_song($uname, $pid)
+    function update_current_song()
     {
-        /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
-         */
+	$conn = conn_start();
+    	$result = executeQuery($conn, "SELECT sid, title MAX(upvotes - downvotes) FROM playlist_contains_song WHERE pid = '$this->pid'");
+	$conn->close();
+
+	$sid = result[0]["sid"];
+	$title = result[0]["title"];
+    	$uploader = "admin"; // TODO:this
+
+	$this->current_song = new Song($sid, $uploader, $this->pid, $title);
     }
 	
-	function get_encore_score()
+    function get_encore_score()
     {
-        /*
-         * Description: Gets the playlist's encore score
-		 *
-		 * Returns: The encore score as an integer
-         */
-		 return $encore_score;
+	$this->update_current_song();
+	return $this->current_song->get_encore_score();
     }
 
     function vote_encore()
     {
-        /*
-         * Description:
-         *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
-         */
+	$this->update_current_song();
+	$this->current_song->vote_encore();
     }
 }
 ?>

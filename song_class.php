@@ -14,25 +14,26 @@ class Song {
 	private $title;
 	private $sid;
 	private $pid;
-	
-    function __construct($url, $song_title, $uploader, $pid)
+	s
+    function __construct($url, $uploader, $pid, $song_title)
     {
 	$conn = conn_start();
 
-    $this->url = sanitize($conn, $url);
-	$this->title = sanitize($conn, $song_title);
+    	$this->url = sanitize($conn, $url);
 	$this->uploader = sanitize($conn, $uploader);
 	$this->pid = sanitize($conn, $pid);
 		
 	// see if the song is in the database
 	$result = executeQuery($conn, "SELECT * FROM song WHERE url='$this->url'");
-		
+
 	// add song to database if it is not already there
 	if (sizeof($result) == 0) {
-		$result = executeQuery($conn, "INSERT INTO song (url, title) VALUES ('$this->url', '$this->title')");
+		$result = executeQuery($conn, "INSERT INTO song (url, title) VALUES ('$this->url', '$song_title')");
 		$result = executeQuery($conn, "SELECT * FROM song WHERE url='$this->url'");
 	}
 
+	$this->sid = $result[0]["sid"];
+	$this->title = $result[0]["title"];
 	$conn->close();
     }
 	
@@ -82,33 +83,23 @@ class Song {
 	}
 	
 	function get_uploader()
-    {
-        /*
-         * Description: Gets the song's uploader
-		 *
-		 * Returns: The uploader username as a string
-         */
-		 return $uploader;
+        {
+		 return $this->uploader;
 	}
 	
 	function get_url()
-    {
-        /*
-         * Description: Gets the song's url
-		 *
-		 * Returns: The url as a string
-         */
-		 return $url;
+        {
+		return $this->url;
 	}
 	
 	function get_title()
-    {
-        /*
-         * Description: Gets the song's title
-		 *
-		 * Returns: The title as a string
-         */
-		 return $title;
+        {
+		 return $this->title;
+	}
+
+	function get_sid() 
+	{
+		return $this->sid;
 	}
 }
 ?>
