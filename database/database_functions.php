@@ -14,7 +14,7 @@
 
         // sanitize input
         $uname = sanitize($conn, $uname);
-        $pword = sanitize($conn, $pword); 
+        $pword = sanitize($conn, $pword);
 
         // salt pword
         $salt1 = "j*H2!";
@@ -24,11 +24,11 @@
         // default score to 0 and admin flag to false
         $query = "INSERT user(username, password, score, admin) VALUES('$uname', '$pword_hashed', 0, false)";
         /* echo "$query"; // for debugging */
-        executeQuery($conn, $query); 
+        executeQuery($conn, $query);
 
         $conn->close();
     }
-    
+
     function promote_to_admin($uname)
     {
         /*
@@ -37,7 +37,7 @@
          * Parameters:
          * |   Param    |   Type    |   Description     |
          * |   $uname   |   string  |   Username to promote to admin |
-         * 
+         *
          * Returns: None
          */
         $conn = conn_start();
@@ -45,7 +45,7 @@
         // sanitize input
         $uname = sanitize($conn, $uname);
         $query = "UPDATE user SET admin=1 WHERE username='$uname'";
-        executeQuery($conn, $query); 
+        executeQuery($conn, $query);
 
         $conn->close();
     }
@@ -68,13 +68,14 @@
 
         // if no result, MySQL Error.  Close connection
         if (!$result) {
-            echo "DEBUG:  $conn->error";
+            echo "DEBUG:  $conn->error<br>";
+            echo "DEBUG: $query<br>";
             /* $conn->close(); */
-            return 1; 
+            return 1;
         }
-        
+
         // if result type is boolean, that means it was not a select query
-        if (gettype($result) == 'boolean') 
+        if (gettype($result) == 'boolean')
         {
             return 0;
         }
@@ -83,10 +84,10 @@
         while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
             $returnValue[] = $row;
         }
-        
+
         // close result
         $result->close();
-        
+
         return $returnValue;
     }
 
@@ -95,23 +96,25 @@
         /*
          * Description: Connect to the Database
          * Parameters: None
-         * Returns: mysqli->conn; 
-         */ 
+         * Returns: mysqli->conn;
+         */
        require('login.php');
        $conn = new mysqli($hn, $un, $pw, $db);
        if ($conn->connect_error)
            die($conn->connect_error);  // Need better error handling
 
-       return $conn; 
+       return $conn;
     }
 
-	function sanitize($conn, $string) {
-		return htmlentities(mysql_fix_string($conn, $string));
-	}
+    function sanitize($conn, $string)
+    {
+        return htmlentities(mysql_fix_string($conn, $string));
+    }
 
-	function mysql_fix_string($conn, $string) {
-		if (get_magic_quotes_gpc())
-			$string = stripslashes($string);
-		return $conn->real_escape_string($string);
-	}
+    function mysql_fix_string($conn, $string)
+    {
+        if (get_magic_quotes_gpc())
+            $string = stripslashes($string);
+        return $conn->real_escape_string($string);
+    }
 ?>

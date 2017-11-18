@@ -154,7 +154,7 @@ class User {
          * Parameters:
          * |   Param    |   Type    |   Description     |
          */
-        $query = "SELECT * FROM playlist WHERE username=$username";
+        $query = "SELECT * FROM playlist WHERE username=$this->username";
         $this->playlists =  executeQuery($query);
     }
 
