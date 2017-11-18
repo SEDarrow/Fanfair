@@ -24,9 +24,11 @@ class User {
 
         // string sanitation
         $uname = sanitize($conn, $uname);
+        echo "DEBUG(1): $uname<br>";
 
         // get user data
         $query = "SELECT * FROM user WHERE username='$uname'";
+        echo "DEBUG(2): $query<br>"; 
         $user_data = executeQuery($conn, $query);
 
         // update playlist list
@@ -155,7 +157,7 @@ class User {
          * |   Param    |   Type    |   Description     |
          */
         $query = "SELECT * FROM playlist WHERE username=$this->username";
-        $this->playlists =  executeQuery($query);
+        $this->playlists =  executeQuery($conn, $query);
     }
 
 }

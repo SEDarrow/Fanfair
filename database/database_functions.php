@@ -68,8 +68,8 @@
 
         // if no result, MySQL Error.  Close connection
         if (!$result) {
-            echo "DEBUG:  $conn->error<br>";
-            echo "DEBUG: $query<br>";
+            echo "DEBUG(!result):  $conn->error<br>";
+            echo "DEBUG(query): $query <br>";
             /* $conn->close(); */
             return 1;
         }
