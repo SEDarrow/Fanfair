@@ -57,9 +57,21 @@ body {
 <body>
 <?php 
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require_once('database/database_functions.php');
 
-require_once 'database_funtions.php';
 		
+		$un_temp = "";
+		$pw_temp = "";
+		$usernameTest = "";
+		$passTest = "";
+		$UN_Err = "";
+		$PW_Err = "";	
+		$flag = 0;
+		if($_SERVER["REQUEST_METHOD"] == "POST"){
+			
+		$username = $_POST["NewUser"];
 		$conn = conn_start();
 		$username = sanitize($conn,$username);
 		
@@ -68,14 +80,6 @@ require_once 'database_funtions.php';
 		
 		$result = executeQuery($conn , $query);
 		
-		
-		$un_temp = "";
-		$pw_temp = "";
-		$usernameTest = "";
-		$passTest = "";
-		$flag = 0;
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			
 			//$passTest = inputsanitize($_POST["NewUser"]);
 			
 			
@@ -88,7 +92,7 @@ require_once 'database_funtions.php';
 			}else if(count($result) != 0 ){
 				
 				$UN_Err = "Sorry That Username Is Already Taken";
-				$connection->mysql_close();
+				
 			}else{
 				
 				echo"Congrats";
@@ -99,7 +103,7 @@ require_once 'database_funtions.php';
 			
 		}
 	
-	$conn -> mysql_close();
+	$conn ->close();
 ?>
 <form method = "POST" action = "register_page.php">
 
