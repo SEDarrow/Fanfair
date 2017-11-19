@@ -24,6 +24,7 @@ class Playlist {
 
         $conn->close();
         $this->pid = $result[0]["pid"];
+        $this->name = $result[0]["playlist_name"];
     }
 
     function add_song($url, $uploader, $title)
@@ -43,7 +44,8 @@ class Playlist {
         $conn->close();
     }
 
-    function remove_current_song() {
+    function remove_current_song()
+    {
         $this->update_current_song();
         $this->remove_song($this->current_song->get_sid());
     }

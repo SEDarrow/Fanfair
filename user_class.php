@@ -24,22 +24,18 @@ class User {
 
         // string sanitation
         $uname = sanitize($conn, $uname);
-        echo "DEBUG(1): $uname<br>";
 
         // get user data
         $query = "SELECT * FROM user WHERE username='$uname'";
-        echo "DEBUG(2): $query<br>"; 
-        $user_data = executeQuery($conn, $query);
+        $user_data = executeQuery($conn, $query)[0];
 
-        // update playlist list
-        $this->update_playlists($conn);
+        $this->username = $user_data["username"];
+        $this->score = $user_data["score"];
+        $this->admin = $user_data["admin"];
+        $this->update_playlists($conn);                  // update playlist list
+        $this->current_playlist = $this->playlists[0];   // default first playlist as current_playlist
 
         $conn->close();  // done with database
-
-        $this->username = $uname;
-        $this->score = user_data["score"];
-        $this->admin = user_data["admin"];
-        $this->current_playlist = $this->playlists[0];   // default first playlist as current_playlist
     }
 
     function vote($song_index, $up)
@@ -50,7 +46,7 @@ class User {
          * Parameters:
          * |   Param    |   Type    |   Description     |
          */
-        $this->current_playlist[$song_index]->vote($up);
+        print_r($this->current_playlist->get_song_list());
     }
 
     function vote_encore()
@@ -74,13 +70,13 @@ class User {
         $conn = conn_start();
         $playlist_name = sanitize($conn, $playlist_name);
         $query = "INSERT playlist(`add`, username, playlist_name)
-                  VALUE(1, $this->username, $playlist_name)";
+                  VALUE(1, '$this->username', '$playlist_name')";
         executeQuery($conn, $query);
 
         // must get pid to create playlist
         $query = "SELECT * FROM playlist
-                  WHERE username=$this->username
-                  AND playlist_name=$playlist_name";
+                  WHERE username='$this->username'
+                  AND playlist_name='$playlist_name'";
         $temp_playlist = executeQuery($conn, $query)[0];
         $this->playlists[] = new Playlist($this->username, $temp_playlist["pid"]);
         $conn->close();
@@ -156,9 +152,13 @@ class User {
          * Parameters:
          * |   Param    |   Type    |   Description     |
          */
-        $query = "SELECT * FROM playlist WHERE username=$this->username";
-        $this->playlists =  executeQuery($conn, $query);
+        $this->playlists = [];
+        $query = "SELECT * FROM playlist WHERE username='$this->username'";
+        $results =  executeQuery($conn, $query);
+        foreach($results as $row)
+        {
+            $this->playlists[] = new Playlist($row["username"], $row["pid"]);
+        }
     }
-
 }
 ?>

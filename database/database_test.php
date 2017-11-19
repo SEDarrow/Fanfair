@@ -8,7 +8,7 @@ require_once('database_functions.php');
     executeQuery("INSERT user(username, password, score, admin)
                   VALUES('Drake', 'banana', 0, false)");
     */
-    
+
     /*
     create_user("admin", "admin");
     create_user("Jimmy", "test");
@@ -16,7 +16,7 @@ require_once('database_functions.php');
     create_user("Landon", "banana");
     promote_to_admin("admin");
      */
-    
+
     /*
     $conn = conn_start();
 
@@ -29,8 +29,15 @@ require_once('database_functions.php');
     $salt2 = "9@l#o";
     $pword_hashed = hash('ripemd128', "$salt1$pword$salt2");
 
-    $query = "SELECT * FROM user WHERE username='$uname' AND password='$pword_hashed'"; 
-    results = executeQuery($conn, $query); 
-    $conn->close(); 
+    $query = "SELECT * FROM user WHERE username='$uname' AND password='$pword_hashed'";
+    results = executeQuery($conn, $query);
+    $conn->close();
      */
+
+    $conn = conn_start();
+    $uname = "Jimmy";
+    $query = "SELECT * FROM user WHERE username='$uname'";
+    $user_info = executeQuery($conn, $query)[0];
+    $conn->close();
+    print_r($user_info);
 ?>
