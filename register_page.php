@@ -50,53 +50,45 @@ body {
             }
         </style>
     </head>
-
 	
 
 <br><div style='text-align:center'>
 <br><br><br><br><br><br><br>
 <body>
-<form method = "post" action = "register_page.php">
-
-
 <?php 
-	require_once("grab_users.php");
-	
-		$result = $Q_result;
-		$rows = $result -> mysql_num_rows;
-		$row = $Q_rows;
+
+
+require_once 'database_funtions.php';
+		
+		$conn = conn_start();
+		$username = sanitize($conn,$username);
+		
+		$query = "SELECT * FROM user WHERE username LIKE '$username'";
+		
+		
+		$result = executeQuery($conn , $query);
+		
+		
 		$un_temp = "";
 		$pw_temp = "";
 		$usernameTest = "";
 		$passTest = "";
 		$flag = 0;
-		
-		//if($_SERVER["REQUEST_METHOD"] == "POST"){
+		if($_SERVER["REQUEST_METHOD"] == "POST"){
 			
-			$usernameTest = inputsanitize($_POST["NewUser"]);
-			
-			for($r = 0; $r < $rows; $r++){
-				
-				$result->mysql_data_seek($r);
-				$row = $result->mysql_fetch_array(MYSQLI_NUM);
-				echo $row[0];
-				if($row[0] = $usernameTest){
-					$flag = 1;
-				}
-				
-				
-			}
 			//$passTest = inputsanitize($_POST["NewUser"]);
+			
+			
 			
 			if(!(isset($_POST["NewUser"]))){
 				echo $_POST["NewUser"];
 				$UN_Err = "Please Enter A Username";
+				$flag = 0;
 				
-				
-			}else if($flag = 1){
+			}else if(count($result) != 0 ){
 				
 				$UN_Err = "Sorry That Username Is Already Taken";
-				
+				$connection->mysql_close();
 			}else{
 				
 				echo"Congrats";
@@ -105,26 +97,24 @@ body {
 			
 			
 			
-		//}
-	function inputsanitize($info){
-		
-		$info = stripslashes($info);
-		$info = htmlspecialchars($info);
-		return $info;
-	}
+		}
+	
+	$conn -> mysql_close();
 ?>
+<form method = "POST" action = "register_page.php">
+
 Requested Username:<br>
-<input type="text" name = "NewUser" value = <?php $usernameTest ?>><br>
+<input type="text" name = "NewUser" value = <?php $username ?>><br>
 <span class="error"><?php echo $UN_Err;?></span>
 <br><br>
 
 Requested Password:<br>
 <input type="text" name = "NewPass"><br>
 <span class="error"><?php echo $PW_Err;?></span>
+
 <input type="submit" value= "Submit">
-
-
 </form>
+
 </body>
 	
 	
