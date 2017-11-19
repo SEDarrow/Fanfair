@@ -80,6 +80,22 @@
     $user->vote_encore();
      */
 
-    /* $user->remove_playlist(8); */
+    /*
+    // delete playlist and it should be removed from object and db
+    echo "<br>";
+    $user->remove_playlist(6);
+    echo "Playlists after delete:<br>";
+    $playlists = $user->get_playlists();
+    foreach ($playlists as $playlist)
+    {
+        echo ">>>";
+        print_r($playlist->get_playlist_name());
+        echo "<br>";
+    }
 
+    $playlist_count = count($playlists);
+    echo "Number of playlists: ";
+    print_r($playlist_count);
+    echo "<br>";
+     */
 ?>
