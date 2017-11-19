@@ -80,4 +80,6 @@
     $user->vote_encore();
      */
 
+    /* $user->remove_playlist(8); */
+
 ?>

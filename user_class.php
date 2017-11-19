@@ -5,7 +5,7 @@ require_once('playlist_class.php');
 require_once('database/database_functions.php');
 
 class User {
-    private $playlists;  // associative list [pid : Playlist obj]
+    private $playlists;
     private $username;
     private $score;
     private $current_playlist;
@@ -79,6 +79,16 @@ class User {
                   AND playlist_name='$playlist_name'";
         $temp_playlist = executeQuery($conn, $query)[0];
         $this->playlists[] = new Playlist($this->username, $temp_playlist["pid"]);
+        $conn->close();
+    }
+
+    function remove_playlist($pid)
+    {
+        // remove playlist from db
+        $conn = conn_start();
+        $query = "DELETE FROM playlist WHERE pid=$pid";
+        executeQuery($conn, $query);
+        $this->update_playlists($conn);     // update playlist
         $conn->close();
     }
 

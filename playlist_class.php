@@ -115,5 +115,10 @@ class Playlist {
     {
         return $this->name;
     }
+
+    function get_pid()
+    {
+        return $this->pid;
+    }
 }
 ?>
