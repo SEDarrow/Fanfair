@@ -14,10 +14,11 @@ class User {
     function __construct($uname)
     {
         /*
-         * Description:
+         * Description: Constructor
          *
          * Parameters:
          * |   Param    |   Type    |   Description     |
+         * | $uname     |   string  |   Username        |
          */
         // start connection
         $conn = conn_start();
@@ -40,32 +41,32 @@ class User {
 
     function vote($song_index, $up)
     {
-        /*
-         * Description:
+        /* Description: Vote on a song in the current playlist
          *
          * Parameters:
          * |   Param    |   Type    |   Description     |
+         * | $song_index|   int     | The index to the song in current playlist |
+         * | $up        |   bool    | 1 = upvote; 0 = downvote |
          */
         print_r($this->current_playlist->get_song_list());
     }
 
     function vote_encore()
     {
-        /* Description:
+        /* Description: Vote for an encore for the current song
          *
-         * Parameters:
-         * |   Param    |   Type    |   Description     |
+         * Parameters: None
          */
         $this->current_playlist->vote_encore();
     }
 
     function add_playlist($playlist_name)
     {
-        /* TODO: TEST
-         * Description:
+        /* Description: Create a new playlist
          *
          * Parameters:
          * |   Param    |   Type    |   Description     |
+         * | $playlist_name | string | name of the playlist |
          */
         $conn = conn_start();
         $playlist_name = sanitize($conn, $playlist_name);
@@ -84,7 +85,12 @@ class User {
 
     function remove_playlist($pid)
     {
-        // remove playlist from db
+        /* Description: Delete an existing playlist
+         *
+         * Parameters:
+         * |   Param    |   Type    |   Description     |
+         * | $pid       | int       | pid of the playlist to be deleted |
+         */
         $conn = conn_start();
         $query = "DELETE FROM playlist WHERE pid=$pid";
         executeQuery($conn, $query);
@@ -94,8 +100,7 @@ class User {
 
     function get_playlists()
     {
-        /*
-         * Description: Gets the user's playlists
+        /* Description: Gets the user's playlists
          *
          * Returns: A list of playlist objects
          */
@@ -104,19 +109,18 @@ class User {
 
     function update_current_playlist($playlist_index)
     {
-        /*
-         * Description: Return the first playlist object from the playlist list
+        /* Description: Change the current playlist
          *
          * Parameters:
          * |   Param    |   Type    |   Description     |
+         * | $playlist_index | int  | playlist index in $this->playlists |
          */
         $this->current_playlist = $this->playlists[$playlist_index];
     }
 
     function get_username()
     {
-        /*
-         * Description: Gets the user's username
+        /* Description: Gets the user's username
          *
          * Returns: The username as a string
          */
@@ -125,8 +129,7 @@ class User {
 
     function get_score()
     {
-        /*
-         * Description: Gets the user's score
+        /* Description: Gets the user's score
          *
          * Returns: The score as an integer
          */
@@ -135,8 +138,7 @@ class User {
 
     function get_current_playlist()
     {
-        /*
-         * Description: Gets the playlist the user is currently listening to
+        /* Description: Gets the playlist the user is currently listening to
          *
          * Returns: The current playlist as a playlist object
          */
@@ -145,8 +147,7 @@ class User {
 
     function get_admin_status()
     {
-        /*
-         * Description: Gets the user's admin status
+        /* Description: Gets the user's admin status
          *
          * Returns: A boolean, true if the user is an admin
          */
@@ -155,12 +156,12 @@ class User {
 
     private function update_playlists($conn)
     {
-        // TODO: TEST
         /* Description: Private class function that updates the list of playlists
          *              To be used when a playlist is added/deleted
          *
          * Parameters:
          * |   Param    |   Type    |   Description     |
+         * | $conn      | mysqli_conn | mysqli connection |
          */
         $this->playlists = [];
         $query = "SELECT * FROM playlist WHERE username='$this->username'";
