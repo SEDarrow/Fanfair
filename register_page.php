@@ -1,34 +1,5 @@
 <!DOCTYPE html>
 <html>
-<style> 
-td, th {
-     border: 1px solid;
-     text-align: center;
-     padding: 0.5em;
-  }  
-body { 
-  background: url("background.png") repeat;
-}
-#logo {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  width: 395px;
-  height: 106px;
-  z-index: -1;
-}
-#banner {
-  position: absolute;
-  top: 0px;
-  left: 395px;
-  right: 0px;
-  width: 100%;
-  height: 106px;
-  z-index: -1;
-}
-</style>
-
  <head>
     <meta charset="UTF-8">
     <title>
@@ -44,22 +15,13 @@ body {
 </head>
 
 <body>
-
-<iframe src="header.html" id="header-iframe"></iframe>
-<div id="header-buttons">
-	<a href="register_page.php">
-		<img src="images/register.png" id="register" class="header-button" >
-	</a>
-	<a href="login_page.php">
-		<img src="images/login.png" id="login" class="header-button">
-	</a>
-</div>
-<div id="header-space"></div>		
+	
 <div style='text-align:center;'>
 <?php 
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+require_once('header.php');
 require_once('database/database_functions.php');
 
 		

@@ -21,20 +21,14 @@ td, th {
 		<link href="https://fonts.googleapis.com/css?family=Oleo+Script" rel="stylesheet">
 		<link rel="stylesheet" href="style/common.css">
     </head>
+
     <body>
-		<iframe src="header.html" id="header-iframe"></iframe>
-		<div id="header-buttons">
-			<a href="register_page.php">
-				<img src="images/register.png" id="register" class="header-button" >
-			</a>
-			<a href="login_page.php">
-				<img src="images/login.png" id="login" class="header-button">
-			</a>
-		</div>
-		<div id="header-space"></div>
         <?php
+
 		error_reporting(E_ALL);
 		ini_set('display_errors', 1);
+		
+		require_once('header.php');
 		
 		session_start();
 		if (isset($_SESSION['username']))
