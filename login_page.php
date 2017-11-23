@@ -31,8 +31,11 @@ td, th {
 				<img src="images/login.png" id="login" class="header-button">
 			</a>
 		</div>
-
+		<div id="header-space"></div>
         <?php
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		
 		session_start();
 		if (isset($_SESSION['username']))
 		{
@@ -102,7 +105,7 @@ td, th {
 
         ?>
 		<div style='text-align:center;'> 
-		<h1 style="font-size:80px;line-height:100px;width:40%;border-bottom-style:solid;margin:auto;margin-top:125px;margin-bottom: 20px"> Log In </h1>
+		<h1 style="font-size:80px;line-height:100px;width:40%;border-bottom-style:solid;margin:auto;margin-bottom: 20px"> Log In </h1>
         <?php
 
         echo'<form method="post" action="login_page.php">';

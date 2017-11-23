@@ -54,8 +54,8 @@ body {
 		<img src="images/login.png" id="login" class="header-button">
 	</a>
 </div>
-		
-<div style='text-align:center;margin-top:120px;'>
+<div id="header-space"></div>		
+<div style='text-align:center;'>
 <?php 
 
 error_reporting(E_ALL);
