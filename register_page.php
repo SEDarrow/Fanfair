@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-<style> td, th {
+<style> 
+td, th {
      border: 1px solid;
      text-align: center;
      padding: 0.5em;
   }  
-  <style>
 body { 
   background: url("background.png") repeat;
 }
@@ -28,33 +28,28 @@ body {
   z-index: -1;
 }
 </style>
-</head>
-<body>
-  <img id="logo" src="Logo.png" alt="Logo Image"/>
-</body>
-<body>
-  <img id="banner" src="Banner.png" alt="Banner Image"/>
-</body>  
-<body background="background.png"></body>
-</style>
-    <head>
-        <meta charset="UTF-8">
-        <title>Log in to Website
+
+ <head>
+    <meta charset="UTF-8">
+    <title>
+	    FanFair - Register
 		<style>
             .error {color: #FF0000;}
         </style>
-		</title>
-        <style>
-            input{
-                margin-bottom: 0.5em;
-            }
-        </style>
-    </head>
-	
+	</title>
+    <style>
+        input{
+            margin-bottom: 0.5em;
+        }
+    </style>
+	<link href="https://fonts.googleapis.com/css?family=Oleo+Script" rel="stylesheet">
+	<link rel="stylesheet" href="style/common.css">
+</head>
 
-<br><div style='text-align:center'>
-<br><br><br><br><br><br><br>
 <body>
+
+<iframe src="header.html" id="header-iframe"></iframe>
+<div style='text-align:center;margin-top:120px;'>
 <?php 
 
 error_reporting(E_ALL);
@@ -101,30 +96,26 @@ require_once('database/database_functions.php');
 			
 			
 			
+	$conn ->close();	
 		}
-	
-	$conn ->close();
+
 ?>
 <form method = "POST" action = "register_page.php">
+<h1 style="font-size:80px;line-height:100px;margin:0;width:40%;border-bottom-style:solid;margin:auto"> Register </h1>
+<div>
+	<h2>Requested Username:</h2>
+	<input type="text" name = "NewUser" value = <?php $username ?>><br>
+	<span class="error"><?php echo $UN_Err;?></span>
 
-Requested Username:<br>
-<input type="text" name = "NewUser" value = <?php $username ?>><br>
-<span class="error"><?php echo $UN_Err;?></span>
-<br><br>
+	<h2 style="margin-top: 30px">Requested Password:</h2>
+	<input type="text" name = "NewPass"><br>
+	<span class="error"><?php echo $PW_Err;?></span>
 
-Requested Password:<br>
-<input type="text" name = "NewPass"><br>
-<span class="error"><?php echo $PW_Err;?></span>
-
-<input type="submit" value= "Submit">
+	<input style="margin-top: 30px" type="submit" value= "Submit" id="button">
+</div>
 </form>
 
 </body>
-	
-	
-
-	
-	
 </html>
 
 
