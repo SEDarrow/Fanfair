@@ -33,9 +33,6 @@ body {
     <meta charset="UTF-8">
     <title>
 	    FanFair - Register
-		<style>
-            .error {color: #FF0000;}
-        </style>
 	</title>
     <style>
         input{
@@ -49,6 +46,15 @@ body {
 <body>
 
 <iframe src="header.html" id="header-iframe"></iframe>
+<div id="header-buttons">
+	<a href="register_page.php">
+		<img src="images/register.png" id="register" class="header-button" >
+	</a>
+	<a href="login_page.php">
+		<img src="images/login.png" id="login" class="header-button">
+	</a>
+</div>
+		
 <div style='text-align:center;margin-top:120px;'>
 <?php 
 
@@ -104,12 +110,12 @@ require_once('database/database_functions.php');
 <h1 style="font-size:80px;line-height:100px;margin:0;width:40%;border-bottom-style:solid;margin:auto"> Register </h1>
 <div>
 	<h2>Requested Username:</h2>
-	<input type="text" name = "NewUser" value = <?php $username ?>><br>
-	<span class="error"><?php echo $UN_Err;?></span>
+	<input type="text" name = "NewUser" value = <?php $username ?>>
+	<p class="error"><?php echo $UN_Err;?></p>
 
 	<h2 style="margin-top: 30px">Requested Password:</h2>
-	<input type="text" name = "NewPass"><br>
-	<span class="error"><?php echo $PW_Err;?></span>
+	<input type="text" name = "NewPass">
+	<p class="error"><?php echo $PW_Err;?></p>
 
 	<input style="margin-top: 30px" type="submit" value= "Submit" id="button">
 </div>
