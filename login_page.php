@@ -1,56 +1,37 @@
 <!DOCTYPE html>
 <html>
-<style> td, th {
+<style> 
+td, th {
      border: 1px solid;
      text-align: center;
      padding: 0.5em;
   }  
-  <style>
-body { 
-  background: url("background.png") repeat;
-}
-#logo {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  width: 395px;
-  height: 106px;
-  z-index: -1;
-}
-#banner {
-  position: absolute;
-  top: 0px;
-  left: 395px;
-  right: 0px;
-  width: 100%;
-  height: 106px;
-  z-index: -1;
-}
+
 </style>
-</head>
-<body>
-  <img id="logo" src="Logo.png" alt="Logo Image"/>
-</body>
-<body>
-  <img id="banner" src="Banner.png" alt="Banner Image"/>
-</body>  
-<body background="background.png"></body>
-</style>
+
     <head>
         <meta charset="UTF-8">
-        <title>Log in to Website
-		<style>
-            .error {color: #FF0000;}
-        </style>
+        <title>Fanfair - Log In
 		</title>
         <style>
             input {
                 margin-bottom: 0.5em;
             }
         </style>
+		<link href="https://fonts.googleapis.com/css?family=Oleo+Script" rel="stylesheet">
+		<link rel="stylesheet" href="style/common.css">
     </head>
     <body>
+		<iframe src="header.html" id="header-iframe"></iframe>
+		<div id="header-buttons">
+			<a href="register_page.php">
+				<img src="images/register.png" id="register" class="header-button" >
+			</a>
+			<a href="login_page.php">
+				<img src="images/login.png" id="login" class="header-button">
+			</a>
+		</div>
+
         <?php
 		session_start();
 		if (isset($_SESSION['username']))
@@ -58,7 +39,7 @@ body {
 			redirect($_SESSION['type']);
 		}
 		
-		require_once 'login.php';
+		require_once 'database/login.php';
 		$connection = new mysqli($hn, $un, $pw, $db);
 		
 		if ($connection->connect_error) die($connection->connect_error);
@@ -118,21 +99,18 @@ body {
           //      If the username / password were not valid, show error message
           //      and populate form with the original inputs
           
-          
+
         ?>
-        <br><br><br><br><br><br>
-                
-        <p style="color: red">
-        <!--Placeholder for error messages-->
-        </p>
+		<div style='text-align:center;'> 
+		<h1 style="font-size:80px;line-height:100px;width:40%;border-bottom-style:solid;margin:auto;margin-top:125px;margin-bottom: 20px"> Log In </h1>
         <?php
-		echo"<br><div style='text-align:center'>  ";
+
         echo'<form method="post" action="login_page.php">';
-            echo'<label>Username: </label>';
-            echo'<input type="text" name="username" value=' . $un_temp . '><br>';
-            echo'<label>Password: </label>';
-            echo'<input type="password" name="password" value=' . $pw_temp . '> <br>';
-            echo'<input type="submit" value="Log in">';
+            echo'<h2>Username: </h2>';
+            echo'<input type="text" name="username" value=' . $un_temp . '>';
+            echo'<h2>Password: </h2>';
+            echo'<input type="password" name="password" value=' . $pw_temp . '><br/>';
+            echo'<input type="submit" value="Log in" id="button" style="margin-top:20px;">';
         echo'</form>';
 		echo'<span class="error">';
 		  if ($flag === true) { echo' Invalid Username/Password'; }
@@ -140,13 +118,10 @@ body {
 			
 			if ($loggedin === true)
 				redirect($_SESSION['type']);
-			
-			
-		?>
-        
+		?> 
       
 		Don't Have An Account? <a href="register_page.php">Register</a>
-		</div><t>
+		</div>
 </html>
 <?php
 // place useful functions here
