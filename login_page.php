@@ -139,9 +139,9 @@ td, th {
   function redirect($type)
   {
 	  if ($type == '0')
-		header("Location: fanfair.php");
+		header("Location: Selector_Page.php");
 	  if ($type == '1')
-		header("Location: fanfair.php");
+		header("Location: Selector_Page.php");
   }
   
 ?>
