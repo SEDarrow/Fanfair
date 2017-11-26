@@ -100,23 +100,23 @@ require_once('database_functions.php');
 	<form method = 'POST' action = ''>
 	
 	<?php
-	for($j =0; $j < $rows; $j++){
-			$result->data_seek($j);
+	for($j =0; $j < $rows; $j++){ //This loop scans the database for current playlists.
 			
+			$result->data_seek($j);
 			$row = $result->fetch_array(MYSQLI_ASSOC);
+			
 			echo "<font size='18' face='Arial'>";
 			echo $row['username'];
-			$name = ((string)$row['username']);
 			
-			?>
+			$name = ((string)$row['pid']); //Grabbing the PID from the database
 			
-			
-			<input type = "Radio" name = 'playlist' value=<?php echo($name) ?>> 
-			
+	?>
+			<input type = "Radio" name = 'playlist' value=<?php echo($name) ?>> //creation of the button locked to the PID value
 			<br>
-		<?php
+	<?php
 		}
-		?>
+	?>
+	
 	<br>
 	<input type="submit" name = "Submit Button" value = 'Go!' >
 	
