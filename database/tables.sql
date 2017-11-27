@@ -25,8 +25,8 @@ CREATE TABLE `song` (
 CREATE TABLE `playlist_contains_song` (
   `pid` int(16),
   `sid` int(16),
-  `upvote` int,
-  `downvote` int,
+  `upvotes` int,
+  `downvotes` int,
   `encore` int,
   PRIMARY KEY (`pid`,`sid`),
   FOREIGN KEY (`pid`) REFERENCES `playlist` (`pid`),

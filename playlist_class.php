@@ -30,7 +30,7 @@ class Playlist {
         $song = new Song($url, $uploader, $this->pid, $title);
         $sid = $song->get_sid();
         $conn = conn_start();
-        executeQuery($conn, "INSERT INTO playlist_contains_song (pid, sid, uploader, upvote, downvote, encore) VALUES ('$this->pid', '$sid', '$uploader', 0, 0, 0)");
+        executeQuery($conn, "INSERT INTO playlist_contains_song (pid, sid, uploader, upvotes, downvotes, encore) VALUES ('$this->pid', '$sid', '$uploader', 0, 0, 0)");
         $conn->close();
     }
 
@@ -62,7 +62,7 @@ class Playlist {
     function update_current_song()
     {
         $conn = conn_start();
-        $result = executeQuery($conn, "SELECT url, title, uploader FROM playlist_contains_song P, song S WHERE upvote-downvote = (SELECT MAX(upvote - downvote) FROM playlist_contains_song WHERE pid = $this->pid) AND pid = $this->pid AND P.sid = S.sid");
+        $result = executeQuery($conn, "SELECT url, title, uploader FROM playlist_contains_song P, song S WHERE upvotes-downvotes = (SELECT MAX(upvotes - downvotes) FROM playlist_contains_song WHERE pid = $this->pid) AND pid = $this->pid AND P.sid = S.sid");
         $conn->close();
 
         // get the last element in the array (or the song that has been in the database the longest)
@@ -77,7 +77,7 @@ class Playlist {
     {
         $this->song_list = [];
         $conn = conn_start();
-        $result = executeQuery($conn, "SELECT * FROM playlist_contains_song P, song S WHERE pid = $this->pid AND P.sid = S.sid ORDER BY (upvote - downvote) DESC");
+        $result = executeQuery($conn, "SELECT * FROM playlist_contains_song P, song S WHERE pid = $this->pid AND P.sid = S.sid ORDER BY (upvotes - downvotes) DESC");
         $conn->close();
 
         $songs = [];
