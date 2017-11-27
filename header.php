@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="style/header.css">
 <img src="images/logo.png" id="logo">
-<img src="images/lines.png" id="lines">
+<img src="images/lines.png" id="lines" style="border-bottom-style:solid;boder-bottom-width:3px">
 
 <div id="header-buttons">
 <?php	

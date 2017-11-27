@@ -1,0 +1,46 @@
+#addSongArea {
+	border-bottom-style:solid;
+}
+
+#addSongTitle {
+	line-height: 40px;
+	margin: 0;
+}
+
+#songInputs {
+	display: inline-flex;
+	margin-left: 10%;
+	align-items: center;
+}
+
+#songInputs h2 {
+	margin: 0 30px;
+}
+
+#addSongButton {
+	height: 20px;
+	padding: 0;
+}
+
+.song {
+	width: 80%;
+	margin: 10px 10%;
+	background-color: rgb(99, 146, 140);
+	border-color: rgb(55, 57, 79);
+	border-style: solid;
+	border-width: 2px;
+	box-shadow: -4px 3px rgb(55, 57, 79);
+	padding: 0;
+}
+
+.songInfo {
+	display: inline-flex;
+	width: 100%;
+	margin: 5px 0;	
+	border-bottom-style: solid;
+	border-bottom-color: rgb(208, 38, 55);
+}
+
+#songs {
+	display: block;
+}

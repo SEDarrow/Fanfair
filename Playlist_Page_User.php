@@ -1,20 +1,8 @@
 <!DOCTYPE html>
 <html>
-<style> 
-td, th {
-     border: 1px solid;
-     text-align: center;
-     padding: 0.5em;
-  }  
-  input[type='radio'] { transform: scale(4); }
-  input[type='submit'] { transform: scale(1.5); }
-	input[type='button'] { transform: scale(1); }
-</style>
-
     <head>
         <meta charset="UTF-8">
-        <title>Fanfair - Log In
-		</title>
+        <title>Fanfair</title>
         <style>
             input {
                 margin-bottom: 0.5em;
@@ -22,9 +10,10 @@ td, th {
         </style>
 		<link href="https://fonts.googleapis.com/css?family=Oleo+Script" rel="stylesheet">
 		<link rel="stylesheet" href="style/common.css">
+		<link rel="stylesheet" href="style/playlist.css">
+
     </head>
 
-    <body>
 <body>
 <?php 
 session_start();
@@ -38,15 +27,15 @@ require_once('playlist_class.php');
 	$upvotes = 0;
 	$down = 0;
 	$total = 0;
-	
-	
-	?>
-
-	<form action="" method="post">
-		<font size='8'>
-		Youtube Url: <input type="text" name="url"><br>
-		Song Name: <input type="text" name="sname"><br>
-		<input type="submit" name="submit" value="Submit">
+?>
+	<div id="addSongArea">
+	<form action="Playlist_Page_User.php" method="post">
+		<h1 id="addSongTitle"> Add a song to the playlist: </h1>
+		<div id='songInputs'>
+			<h2> Youtube Url: <input type="text" name="url"></h2>
+			<h2> Song Name: <input type="text" name="sname"></h2>
+			<input id="button" id="addSongButton" type="submit" name="submit" value="Add Song">
+		</div>
 	</form>
 
 	<?php
@@ -56,25 +45,20 @@ require_once('playlist_class.php');
 				$url = $_POST['url'];
 				$name = $_POST['sname'];
 				$err = $currentPlaylist->add_song($url,$user,$name);
-				 echo "<meta http-equiv='refresh' content='0'>";
 				if ($err) echo "<p class='error'>$err</p>";
+				else echo "<p>$name added.</p>";
 			} else {
 				echo "<p class='error'>Please enter a url and song name</p>";
 			}
 		}
 	?>
-	
+
+	</div>
+
 	<form action="" method="post">
-		<font size='8'>
-		
-		<?php
-		
-		?>
 		<input type="submit" name="remove" value="Remove Current Song">
-		
-	
 	</form>
-	
+
 	<?php
 		if(isset($_POST['remove'])){
 			
@@ -90,18 +74,10 @@ require_once('playlist_class.php');
 				 echo "<meta http-equiv='refresh' content='0'>";
 			
 		}
-		?>
+	?>		
 		
-		
-		<form action="" method="post">
-		<font size='8'>
-		
-		<?php
-		
-		?>
+	<form action="" method="post">
 		<input type="submit" name="stereo" value="Stereo Page">
-		
-	
 	</form>
 	
 	<?php
@@ -115,80 +91,43 @@ require_once('playlist_class.php');
 					header("Location: fanfair.php");
 					
 				}
-				
-				 
-			
 		}
-		?>
+	?>
 		
-		<form action="" method="post">
-		<font size='8'>
-		
-		<?php
-		
-		?>
+	<form action="" method="post">
 		<input type="submit" name="PlaylistList" value="Back To Playlists">
-		
-	
 	</form>
 	
 	<?php
 		if(isset($_POST['PlaylistList'])){
-			
-		
-					
-					header("Location: Selector_Page.php");
-		
-				 
-			
+			header("Location: Selector_Page.php");
+	
 		}
-		?>
-		
-		
-		
-		
-	<?php
-		$MasterList = $currentPlaylist->get_song_list();
-	?>
-	
-	
-	<form method="POST" action=''>
-	<?php
+	?>	
+	<form id="songs" method="POST" action=''>
 
-		
-	foreach($MasterList as &$song){
-		
+	<?php
+	$MasterList = $currentPlaylist->get_song_list();
+	foreach($MasterList as $i => &$song){
 		$upvotes = $song->get_upvotes();
 		$down = $song->get_downvotes();
 		$total = $upvotes - $down;
+		$title = $song->get_title();
 		
-		echo "<font size='8'>";
-		echo("<center>");
-		echo("<left>");
-		//echo($total);
-		
-		
-		
-		?>
-		
-		<input type="submit"name="$song->get_sid()"  value="⇧">
-		
-		<?php 
-		echo "<font size='8'>";
-		echo($total); 
-		?>
-		<input type="submit" name="$song->get_sid()"  value="⇩">
-		
-		
-	
-		
-		
-	
-		<?php
-		echo($song->get_title());		
+		echo "<div class='song'>
+			<div class='songInfo'>
+				<input type='submit' name='$i'  value='⇧'>
+		      		<h3> $total </h3>
+		      		<input type='submit' name='$i'  value='⇩'>
+				<span class='space'> </span>
+	              		<h3> $title </h3>
+			</div>
+		      </div>";			
 	}
 	?>
+
 	</form>
+
 	<?php
 	$master = $currentPlaylist->get_song_list();
 	foreach($master as &$songif){
@@ -203,9 +142,4 @@ require_once('playlist_class.php');
 
 
 </body>
-	
-	
-
-	
-	
 </html>
