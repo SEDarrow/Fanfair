@@ -70,7 +70,6 @@
         if (!$result) {
             echo "DEBUG(!result):  $conn->error<br>";
             echo "DEBUG(query): $query <br>";
-            /* $conn->close(); */
             return 1;
         }
 

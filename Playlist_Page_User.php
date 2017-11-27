@@ -44,28 +44,26 @@ require_once('playlist_class.php');
 	
 	$MasterList = $currentPlaylist->get_song_list();
 	?>
+
 	<form action="" method="post">
-	<font size='8'>
-	Youtube Url: <input type="text" name="url"><br>
-	Song Name: <input type="text" name="sname"><br>
-	<input type="submit" value="Submit">
+		<font size='8'>
+		Youtube Url: <input type="text" name="url"><br>
+		Song Name: <input type="text" name="sname"><br>
+		<input type="submit" name="submit" value="Submit">
 	</form>
+
 	<?php
-	if(isset($_POST['submit'])){
-	if (!(empty($_POST['url'])) && !(empty($_POST['sname']))) 
-	{ 
-	$user = $_SESSION['username'];
-	$url = $_POST['url'];
-	$name = $_POST['sname'];
-	$currentPlaylist->add_song($url,$user,$name);
-	//$currentPlaylist-> ;
-	
-	}else{
-		
-		echo(" WHAT");
-		
-	}
-	}
+		if(isset($_POST['submit'])){
+			if (!(empty($_POST['url'])) && !(empty($_POST['sname']))) { 
+				$user = $_SESSION['username'];
+				$url = $_POST['url'];
+				$name = $_POST['sname'];
+				$err = $currentPlaylist->add_song($url,$user,$name);
+				if ($err) echo "<p class='error'>$err</p>";
+			} else {
+				echo "<p class='error'>Please enter a url and song name</p>";
+			}
+		}
 	?>
 	<form method="POST" action=''>
 	<?php 

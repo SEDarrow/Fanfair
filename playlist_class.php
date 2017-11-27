@@ -21,7 +21,7 @@ class Playlist {
         $conn->close();
 
         $this->owner = $result["username"];
-        $this->name = $result["playlist_name"];
+        $this->name = $result["name"];
         $this->update_song_list();      // populate the song list
     }
 
@@ -30,8 +30,16 @@ class Playlist {
         $song = new Song($url, $uploader, $this->pid, $title);
         $sid = $song->get_sid();
         $conn = conn_start();
-        executeQuery($conn, "INSERT INTO playlist_contains_song (pid, sid, uploader, upvotes, downvotes, encore) VALUES ('$this->pid', '$sid', '$uploader', 0, 0, 0)");
-        $conn->close();
+	$result = executeQuery($conn, "INSERT INTO playlist_contains_song (pid, sid, uploader, upvotes, downvotes, encore) VALUES ('$this->pid', '$sid', '$uploader', 0, 0, 0)");
+	
+	$err = "";
+	if ($result == 1) {
+		if (substr($conn->error, 0, 9) == "Duplicate") $err = "That song is already in the playlist";
+		else $err = "There was an error adding the song to the playlist";
+	}
+
+	$conn->close();
+	return $err;
     }
 
     // song parameter is sid

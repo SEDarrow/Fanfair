@@ -54,9 +54,9 @@ ini_set('display_errors', 1);
 	}
 ?>
 <?php 
-			echo "<font size='10' face='Arial'>";
-			echo "Current Artists";
-require_once('database_functions.php');
+	echo "<font size='10' face='Arial'>";
+	echo "Current Artists";
+	require_once('database/database_functions.php');
 	$conn = conn_start();
 	$query = "SELECT * FROM playlist";
 		
