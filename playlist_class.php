@@ -140,5 +140,13 @@ class Playlist {
     {
         return $this->pid;
     }
+
+    function get_song_playing() {
+	$conn = conn_start();
+        $result = executeQuery($conn, "SELECT playing FROM playlist WHERE pid='$this->pid");
+        $conn->close();
+
+	return $result[0]["playing"];
+    }
 }
 ?>
