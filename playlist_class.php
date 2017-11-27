@@ -46,14 +46,20 @@ class Playlist {
     function remove_song($sid)
     {
         $conn = conn_start();
-        executeQuery($conn, "DELETE FROM playlist_contains_song WHERE sid='$sid' AND pid='$this->pid'");
+        $result = executeQuery($conn, "DELETE FROM playlist_contains_song WHERE sid='$sid' AND pid='$this->pid'");
+
+	$err = "";
+	if ($result == 1) $err = "Error removing song from the playlist";
+
         $conn->close();
+	return $err;
     }
 
     function remove_current_song()
     {
         $this->update_current_song();
-        $this->remove_song($this->current_song->get_sid());
+        $err = $this->remove_song($this->current_song->get_sid());
+	return $err;
     }
 
     function get_owner_username()
@@ -70,8 +76,10 @@ class Playlist {
     function update_current_song()
     {
         $conn = conn_start();
-        $result = executeQuery($conn, "SELECT url, title, uploader FROM playlist_contains_song P, song S WHERE upvotes-downvotes = (SELECT MAX(upvotes - downvotes) FROM playlist_contains_song WHERE pid = $this->pid) AND pid = $this->pid AND P.sid = S.sid");
-        $conn->close();
+        $result = executeQuery($conn, "SELECT url, title, uploader FROM playlist_contains_song P, song S WHERE pid = $this->pid AND P.sid = S.sid ORDER BY upvotes-downvotes LIMIT 1");
+	$conn->close();
+	
+	if ($result == 1) return;
 
         // get the last element in the array (or the song that has been in the database the longest)
         $url = $result[0]["url"];
@@ -87,6 +95,8 @@ class Playlist {
         $conn = conn_start();
         $result = executeQuery($conn, "SELECT * FROM playlist_contains_song P, song S WHERE pid = $this->pid AND P.sid = S.sid ORDER BY (upvotes - downvotes) DESC");
         $conn->close();
+
+	if ($result == 1) return;
 
         $songs = [];
         foreach($result as $song) {
