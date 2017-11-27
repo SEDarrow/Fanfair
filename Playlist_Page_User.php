@@ -76,9 +76,22 @@ require_once('playlist_class.php');
 				$user = $_SESSION['username'];
 				$url = $_POST['url'];
 				$name = $_POST['sname'];
+				
+				$vid = $_POST['url'];
+				$vidlen = strlen($vid);
+				$url = "00000000000";
+				$urlc = 0;
+				for ($x = $vidlen - 11; $x < $vidlen && $x > 0; $x++)
+				{
+				$url[$urlc] = $vid[$x];
+				$urlc++;
+				}
+				
+				
 				$err = $currentPlaylist->add_song($url,$user,$name);
 				if ($err) echo "<p class='error'>$err</p>";
 				else echo "<p>$name added.</p>";
+				
 			} else {
 				echo "<p class='error'>Please enter a url and song name</p>";
 			}

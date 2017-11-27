@@ -72,14 +72,28 @@ td, th {
 
 			$result->close();
 
-			//$salt1 = "qm&h*";
-			//$salt2 = "pg!@";
-			//$token = hash('ripemd128', "$salt1$pw_temp$salt2");
+			$salt1 = "j*H2!";
+			$salt2 = "9@l#o";
+			$token = hash('ripemd128', "$salt1$pw_temp$salt2");
 
-			if ($pw_temp === $row[1])
+			if ($token === $row[1])
 			{
               $_SESSION['username'] = $un_temp;
-              $_SESSION['password'] = $pw_temp;
+			  
+			  
+			   if($un_temp == 'admin'){
+				  
+				  $_SESSION['token'] = 1;
+				  
+			  }else{
+				  
+				  $_SESSION['token'] = 0;
+				  
+			  }
+			  
+			  
+			  
+              $_SESSION['password'] = $token;
              // $_SESSION['forename'] = $row[0];
               //$_SESSION['surname']  = $row[1];
 			  $_SESSION['type'] = $row [3];

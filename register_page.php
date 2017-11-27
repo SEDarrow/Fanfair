@@ -58,7 +58,28 @@ require_once('database/database_functions.php');
 				
 			}else{
 				
-				echo"Congrats";
+				$flag = 1;
+				
+			}
+			
+			if(empty($_POST["NewPass"])){
+				$PW_Err = "Please Enter A Password";
+				
+				$flag = 0;
+			}else{
+			
+				$passTest = $_POST["NewPass"];
+				$salt1 = "qm&h*";
+				$salt2 = "pg!@";
+				
+				$flag = 1;
+			}
+			if($flag){
+				
+				create_user($username, $passTest);
+				Echo "Congratulations On Your New Account! Now Returning To Log In Page <br>";
+				
+				header( "refresh:4;url=login_page.php" );
 				
 			}
 			
