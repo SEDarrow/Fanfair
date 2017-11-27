@@ -9,7 +9,6 @@ td, th {
   input[type='radio'] { transform: scale(4); }
   input[type='submit'] { transform: scale(1.5); }
 	input[type='button'] { transform: scale(1); }
-
 </style>
 
     <head>
@@ -28,14 +27,12 @@ td, th {
     <body>
 <body>
 <?php 
-
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
  
 require_once('header.php');
 require_once('playlist_class.php');
-
 	$currentPlaylist = new Playlist($_SESSION['playlist']);
 	
 	$upvotes = 0;
@@ -59,12 +56,37 @@ require_once('playlist_class.php');
 				$url = $_POST['url'];
 				$name = $_POST['sname'];
 				$err = $currentPlaylist->add_song($url,$user,$name);
+				 echo "<meta http-equiv='refresh' content='0'>";
 				if ($err) echo "<p class='error'>$err</p>";
 			} else {
 				echo "<p class='error'>Please enter a url and song name</p>";
 			}
 		}
 	?>
+	<form action="" method="post">
+		<font size='8'>
+		
+		<input type="submit" name="remove" value="Remove Current Song">
+	</form>
+	
+	<?php
+		if(isset($_POST['remove'])){
+			
+				$user = $_SESSION['username'];
+				$playlistUsr =  $currentPlaylist->get_owner_username();
+				
+				if($user == $playlistUsr){
+					
+					$currentPlaylist->remove_current_song();
+					
+				}
+				
+				 echo "<meta http-equiv='refresh' content='0'>";
+			
+		}
+	?>
+	
+	
 	<form method="POST" action=''>
 	<?php 
 	foreach($MasterList as &$song){
