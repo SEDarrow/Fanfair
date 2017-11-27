@@ -1,61 +1,30 @@
 <!DOCTYPE html>
 <html>
-<style> td, th {
+<style> 
+td, th {
      border: 1px solid;
      text-align: center;
      padding: 0.5em;
   }  
-  <style>
-body { 
-  background: url("background.png") repeat;
-}
-#logo {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  width: 395px;
-  height: 106px;
-  z-index: -1;
-}
-#banner {
-  position: absolute;
-  top: 0px;
-  left: 395px;
-  right: 0px;
-  width: 100%;
-  height: 106px;
-  z-index: -1;
-}
-input[type='radio'] { transform: scale(4); }
-input[type='submit'] { transform: scale(4); }
+  input[type='radio'] { transform: scale(4); }
+	input[type='submit'] { transform: scale(4); }
+
 </style>
-</head>
-<body>
-  <img id="logo" src="Logo.png" alt="Logo Image"/>
-</body>
-<body>
-  <img id="banner" src="Banner.png" alt="Banner Image"/>
-</body>  
-<body background="background.png"></body>
-</style>
+
     <head>
         <meta charset="UTF-8">
-        <title>Log in to Website
-		<style>
-            .error {color: #FF0000;}
-        </style>
+        <title>Fanfair - Log In
 		</title>
         <style>
-            input{
+            input {
                 margin-bottom: 0.5em;
             }
         </style>
+		<link href="https://fonts.googleapis.com/css?family=Oleo+Script" rel="stylesheet">
+		<link rel="stylesheet" href="style/common.css">
     </head>
-	
 
-<br><div style='text-align:center'>
-<br><br><br><br><br><br><br>
+    <body>
 <body>
 <?php 
 
@@ -63,6 +32,7 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+		require_once('header.php');
 		
 		$un_temp = "";
 		$pw_temp = "";
@@ -111,7 +81,7 @@ require_once('database_functions.php');
 			$name = ((string)$row['pid']); //Grabbing the PID from the database
 			
 	?>
-			<input type = "Radio" name = 'playlist' value=<?php echo($name) ?>> //creation of the button locked to the PID value
+			<input type = "Radio" name = 'playlist' value=<?php echo($name) ?>> 
 			<br>
 	<?php
 		}
@@ -126,7 +96,7 @@ require_once('database_functions.php');
 		//echo $_POST['playlist'];
 		
 		$_SESSION['playlist'] = $_POST['playlist'];
-		header('Location: fanfair.php');
+		header('Location: Playlist_Page_User.php');
 		
 		
 		}
