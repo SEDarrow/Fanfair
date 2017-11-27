@@ -28,6 +28,38 @@ require_once('playlist_class.php');
 	$down = 0;
 	$total = 0;
 ?>
+
+	<div id="links">
+	<form action="" method="post">
+		<input id="button" type="submit" name="stereo" value="To Stereo Page" style="margin:10px;margin-top:0">
+	</form>
+	
+	<?php
+		if(isset($_POST['stereo'])){
+			
+				$user = $_SESSION['username'];
+				$playlistUsr =  $currentPlaylist->get_owner_username();
+				
+				if($user == $playlistUsr){
+					
+					header("Location: fanfair.php");
+					
+				}
+		}
+	?>
+		
+	<form action="" method="post">
+		<input id="button" type="submit" name="PlaylistList" value="Back To Playlists" style="margin:10;margin-top:0">
+	</form>
+	
+	<?php
+		if(isset($_POST['PlaylistList'])){
+			header("Location: Selector_Page.php");
+	
+		}
+	?>	
+	</div>
+
 	<div id="addSongArea">
 	<form action="Playlist_Page_User.php" method="post">
 		<h1 id="addSongTitle"> Add a song to the playlist: </h1>
@@ -55,8 +87,8 @@ require_once('playlist_class.php');
 
 	</div>
 
-	<form action="" method="post">
-		<input type="submit" name="remove" value="Remove Current Song">
+	<form action="" method="post" style="margin-left:40%;margin-top:10px;">
+		<input type="submit" name="remove" value="Remove Current Song" id="button">
 	</form>
 
 	<?php
@@ -76,34 +108,6 @@ require_once('playlist_class.php');
 		}
 	?>		
 		
-	<form action="" method="post">
-		<input type="submit" name="stereo" value="Stereo Page">
-	</form>
-	
-	<?php
-		if(isset($_POST['stereo'])){
-			
-				$user = $_SESSION['username'];
-				$playlistUsr =  $currentPlaylist->get_owner_username();
-				
-				if($user == $playlistUsr){
-					
-					header("Location: fanfair.php");
-					
-				}
-		}
-	?>
-		
-	<form action="" method="post">
-		<input type="submit" name="PlaylistList" value="Back To Playlists">
-	</form>
-	
-	<?php
-		if(isset($_POST['PlaylistList'])){
-			header("Location: Selector_Page.php");
-	
-		}
-	?>	
 	<form id="songs" method="POST" action=''>
 
 	<?php
