@@ -70,7 +70,7 @@ class User {
          */
         $conn = conn_start();
         $playlist_name = sanitize($conn, $playlist_name);
-        $query = "INSERT playlist(`add`, username, playlist_name)
+        $query = "INSERT playlist(`add`, username, name)
                   VALUE(1, '$this->username', '$playlist_name')";
         executeQuery($conn, $query);
 
