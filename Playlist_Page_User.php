@@ -63,6 +63,7 @@ require_once('playlist_class.php');
 			}
 		}
 	?>
+	
 	<form action="" method="post">
 		<font size='8'>
 		
@@ -89,8 +90,64 @@ require_once('playlist_class.php');
 				 echo "<meta http-equiv='refresh' content='0'>";
 			
 		}
+		?>
 		
 		
+		<form action="" method="post">
+		<font size='8'>
+		
+		<?php
+		
+		?>
+		<input type="submit" name="stereo" value="Stereo Page">
+		
+	
+	</form>
+	
+	<?php
+		if(isset($_POST['stereo'])){
+			
+				$user = $_SESSION['username'];
+				$playlistUsr =  $currentPlaylist->get_owner_username();
+				
+				if($user == $playlistUsr){
+					
+					header("Location: fanfair.php");
+					
+				}
+				
+				 
+			
+		}
+		?>
+		
+		<form action="" method="post">
+		<font size='8'>
+		
+		<?php
+		
+		?>
+		<input type="submit" name="PlaylistList" value="Back To Playlists">
+		
+	
+	</form>
+	
+	<?php
+		if(isset($_POST['PlaylistList'])){
+			
+		
+					
+					header("Location: Selector_Page.php");
+		
+				 
+			
+		}
+		?>
+		
+		
+		
+		
+	<?php
 		$MasterList = $currentPlaylist->get_song_list();
 	?>
 	
