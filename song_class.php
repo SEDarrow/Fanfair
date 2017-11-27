@@ -24,11 +24,11 @@ class Song {
         $this->pid = sanitize($conn, $pid);
 
         // see if the song is in the database
-        $result = executeQuery($conn, "SELECT * FROM song WHERE url='$this->url'");
+        $result = executeQuery($conn, "SELECT * FROM song WHERE url='$this->url' AND playlist='$this->pid'");
 
         // add song to database if it is not already there
         if (sizeof($result) == 0) {
-            $result = executeQuery($conn, "INSERT INTO song (url, title) VALUES ('$this->url', '$song_title')");
+            $result = executeQuery($conn, "INSERT INTO song (url, title, playlist) VALUES ('$this->url', '$song_title', '$this->pid')");
             $result = executeQuery($conn, "SELECT * FROM song WHERE url='$this->url'");
         }
 

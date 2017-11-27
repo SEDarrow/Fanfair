@@ -118,7 +118,7 @@ require_once('playlist_class.php');
 			<div class='songInfo'>
 				<input type='submit' name='$i'  value='⇧'>
 		      		<h3> $total </h3>
-		      		<input type='submit' name='$i'  value='⇩'>
+		      		<input id='votes' type='submit' name='$i'  value='⇩'>
 				<span class='space'> </span>
 	              		<h3> $title </h3>
 			</div>

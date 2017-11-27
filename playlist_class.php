@@ -51,6 +51,9 @@ class Playlist {
 	$err = "";
 	if ($result == 1) $err = "Error removing song from the playlist";
 
+ 	$result = executeQuery($conn, "DELETE FROM song WHERE sid='$sid' AND playlist='$this->pid'");
+	if ($result == 1) $err = "Error removing song from the playlist";
+
         $conn->close();
 	return $err;
     }
