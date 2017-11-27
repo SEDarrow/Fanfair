@@ -39,7 +39,7 @@ require_once('playlist_class.php');
 	$down = 0;
 	$total = 0;
 	
-	$MasterList = $currentPlaylist->get_song_list();
+	
 	?>
 
 	<form action="" method="post">
@@ -66,7 +66,12 @@ require_once('playlist_class.php');
 	<form action="" method="post">
 		<font size='8'>
 		
+		<?php
+		
+		?>
 		<input type="submit" name="remove" value="Remove Current Song">
+		
+	
 	</form>
 	
 	<?php
@@ -84,11 +89,16 @@ require_once('playlist_class.php');
 				 echo "<meta http-equiv='refresh' content='0'>";
 			
 		}
+		
+		
+		$MasterList = $currentPlaylist->get_song_list();
 	?>
 	
 	
 	<form method="POST" action=''>
-	<?php 
+	<?php
+
+		
 	foreach($MasterList as &$song){
 		
 		$upvotes = $song->get_upvotes();
