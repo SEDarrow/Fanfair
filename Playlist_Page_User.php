@@ -95,7 +95,7 @@ require_once('playlist_class.php');
 	</div>
 
 <?php
-	if ($_SESSION['username'] == $currentPlaylist->get_owner_username() ||  $_SESSION['token'] = 1)
+	if ($_SESSION['username'] == $currentPlaylist->get_owner_username() ||  $_SESSION['token'] == 1)
 		echo '<form action="" method="post" style="margin-left:40%;margin-top:10px;">
 			<input type="submit" name="remove" value="Remove Current Song" id="button">
 		</form>';
