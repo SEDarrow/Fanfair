@@ -161,11 +161,11 @@ require_once('playlist_class.php');
 		
 		echo "<div class='song'>
 			<div class='songInfo'>
-				<input type='submit' name='$sid'  value='⇧' onclick = 'up($sid)' id = '$sid'>
-		      		<h3> $total </h3>
-		      		<input id='$sid' type='submit' name='$sid'  value='⇩' onclick = 'down($sid)'>
+				<input id='arrow' type='submit' name='$sid'  value='⇧' onclick = 'up($sid)' id = '$sid' style='margin-left:20px;'>
+		      		<h3 class='votes'> $total </h3>
+		      		<input id='arrow' id='$sid' type='submit' name='$sid'  value='⇩' onclick = 'down($sid)'>
 				<span class='space'> </span>
-	              		<h3> $title </h3>
+	              		<h3 class='songTitle'> $title </h3>
 			</div>
 		      </div>";			
 	}
@@ -196,7 +196,7 @@ require_once('playlist_class.php');
 			executeQuery($conn, $query);
 			header("Refresh:0");
 		
-    }
+    		}
 	}
 	}
 	

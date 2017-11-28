@@ -43,8 +43,38 @@
 	margin: 5px 0;	
 	border-bottom-style: solid;
 	border-bottom-color: rgb(208, 38, 55);
+	align-items: center;
 }
 
 #songs {
 	display: block;
+}
+
+#arrow, .votes {
+	background-color: rgb(99, 146, 140);
+	border-style: solid;
+	border-color: rgb(55, 57, 79);
+	margin: 0 4px;
+    	padding: 10px 14px;
+	height: 40px;
+}
+
+#arrow {
+	color: rgb(55, 57, 79);
+	font-weight: bold;
+}
+
+.votes {
+    color: rgb(239, 203, 165);
+    font-weight: bold;
+    line-height: 10px;
+    padding-top: 13px;
+    height: 13px;
+    border-width: 2px;
+}
+
+.songTitle {
+    font-size: 30px;
+    line-height: 30px;
+    margin: 10px 30px;
 }
