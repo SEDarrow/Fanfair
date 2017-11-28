@@ -121,7 +121,34 @@ require_once('playlist_class.php');
 		}
 	?>		
 		
-	<form id="songs" method="POST" action=''>
+	
+	<?php
+	
+	
+	function up($s){
+		
+		$pid = $_SESSION['playlist'];
+		
+		$query = "UPDATE playlist_contains_song SET upvotes = upvotes + 1 WHERE pid = $pid AND sid = $s";
+		executeQuery($query);
+	}
+	function down($s){
+		
+		$pid = $_SESSION['playlist'];
+		
+		$query = "UPDATE playlist_contains_song SET downvotes = downvotes + 1 WHERE pid = $pid AND sid = $s";
+		
+		executeQuery($query);
+		
+	}
+	
+	?>
+	
+	
+	
+		
+		
+	<form id="songs" method="POST" action="Playlist_Page_User.php">
 
 	<?php
 	$MasterList = $currentPlaylist->get_song_list();
@@ -130,27 +157,57 @@ require_once('playlist_class.php');
 		$down = $song->get_downvotes();
 		$total = $upvotes - $down;
 		$title = $song->get_title();
+		$sid = $song->get_sid();
 		
 		echo "<div class='song'>
 			<div class='songInfo'>
-				<input type='submit' name='$i'  value='⇧'>
+				<input type='submit' name='$sid'  value='⇧' onclick = 'up($sid)' id = '$sid'>
 		      		<h3> $total </h3>
-		      		<input id='votes' type='submit' name='$i'  value='⇩'>
+		      		<input id='$sid' type='submit' name='$sid'  value='⇩' onclick = 'down($sid)'>
 				<span class='space'> </span>
 	              		<h3> $title </h3>
 			</div>
 		      </div>";			
 	}
+	
+	
+	
 	?>
-
 	</form>
-
+	
 	<?php
+	$MasterList = $currentPlaylist->get_song_list();
+	foreach($MasterList as $i => &$song){
+	
+	$sid = $song->get_sid();	
+	
+	if (isset($_POST[(string)$sid])) {
+		if($_POST[(string)$sid] == '⇧'){
+			$conn = conn_start();
+			$pid = $_SESSION['playlist'];
+			$query = "UPDATE playlist_contains_song SET upvotes = upvotes + 1 WHERE pid = $pid AND sid = $sid";
+			executeQuery($conn, $query);
+			header("Refresh:0");
+			
+		}else if($_POST[(string)$sid] == '⇩'){
+			$conn = conn_start();
+			$pid = $_SESSION['playlist'];
+			$query = "UPDATE playlist_contains_song SET downvotes = downvotes + 1 WHERE pid = $pid AND sid = $sid";
+			executeQuery($conn, $query);
+			header("Refresh:0");
+		
+    }
+	}
+	}
+	
+	
+	
 	$master = $currentPlaylist->get_song_list();
 	foreach($master as &$songif){
 	$sid = $songif->get_sid();
 	if (isset($_POST['$sid'])) 
 	{ 
+		
 		$songif->vote(1);
 		echo($sid);
 	}  
