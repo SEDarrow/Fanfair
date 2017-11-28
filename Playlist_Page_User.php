@@ -73,6 +73,10 @@ require_once('playlist_class.php');
 				$name = $_POST['sname'];
 				
 				$vid = $_POST['url'];
+
+				$pos = strpos($vid, "&t=");
+				if ($pos > 0) $vid = substr($vid, 0, $pos);
+				
 				$vidlen = strlen($vid);
 				$url = "00000000000";
 				$urlc = 0;
@@ -82,8 +86,9 @@ require_once('playlist_class.php');
 				$urlc++;
 				}
 				
-				
-				$err = $currentPlaylist->add_song($url,$user,$name);
+				if ($vidlen - 11 < 0) $err = "URL is not valid";
+				else $err = $currentPlaylist->add_song($url,$user,$name);
+
 				if ($err) echo "<p class='error'>$err</p>";
 				else echo "<p>$name added.</p>";
 				
