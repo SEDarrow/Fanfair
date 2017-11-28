@@ -61,7 +61,7 @@ class Song {
         $result = executeQuery($conn, "SELECT upvotes FROM playlist_contains_song WHERE pid = '$this->pid' AND sid = '$this->sid'");
         $conn->close();
 
-        return $result[0]['upvotes'];
+	return $result[0]['upvotes'];
     }
 
     function get_downvotes()

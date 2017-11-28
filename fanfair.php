@@ -112,7 +112,13 @@ echo"<hr><div style='text-align:center'>";
   //--------------------------- REPLACE FORM WITH DATABASE FUNCTION CALL AT TOP OF THE FILE AND REMOVE TESTING FORM --------------------------------------
 </script>
 
+  <div style="display:inline-flex">
   <form id="action" method="POST" action="fanfair.php">
-        <input name="go" type="submit" value="SKIP">
+        <input id="button" name="go" type="submit" value="SKIP" style="margin-right:30px">
   </form>
+
+  <form id="action" method="POST" action="Playlist_Page_User.php">
+        <input id="button" name="go" type="submit" value="Back To Voting">
+  </form>
+  </div>
 </html>
