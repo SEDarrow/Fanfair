@@ -40,6 +40,7 @@ require_once('playlist_class.php');
 		if(isset($_POST['stereo'])){
 			header("Location: fanfair.php");
 		}
+
 	?>
 		
 	<form action="" method="post">
@@ -96,12 +97,19 @@ require_once('playlist_class.php');
 
 <?php
 	if ($_SESSION['username'] == $currentPlaylist->get_owner_username() ||  $_SESSION['token'] == 1)
-		echo '<form action="" method="post" style="margin-left:40%;margin-top:10px;">
+		echo '<form action="" method="post" style="margin-top:10px;display:inline-flex;width:100%;justify-content:center">
 			<input type="submit" name="remove" value="Remove Current Song" id="button">
+			<input style="margin-left:20px" type="submit" name="clear" value="Clear Playlist" id="button">
 		</form>';
+
 	
 		if(isset($_POST['remove'])){
 			$currentPlaylist->remove_current_song();
+			echo "<meta http-equiv='refresh' content='0'>";	
+		}
+
+		if(isset($_POST['clear'])){
+			$currentPlaylist->remove_all_songs();
 			echo "<meta http-equiv='refresh' content='0'>";	
 		}
 	?>		
