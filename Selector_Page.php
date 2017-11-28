@@ -51,18 +51,20 @@ ini_set('display_errors', 1);
 	$rows = $result->num_rows;
 ?>
 	</center>
+
 	<form method = 'POST' action = ''>
-	
+	<div style='height:40vh;overflow-y:scroll;width:35%;margin-left:33%;'>
+
 <?php
 	for($j =0; $j < $rows; $j++){ //This loop scans the database for current playlists.	
 		$result->data_seek($j);
 		$row = $result->fetch_array(MYSQLI_ASSOC);
 		$name = ((string)$row['pid']); //Grabbing the PID from the database
-		echo "<h2 style='margin-left:30%'> <input type='radio' name='playlist' value=$name>" . $row['username'] . "</h2>";
+		echo "<h2> <input type='radio' name='playlist' value=$name>" . $row['username'] . "</h2>";
 	}
 ?>
+	</div>
 	<input id='button' type='submit' name = 'Submit Button' value ='View Playlist' style='position:fixed;bottom:20px;left:45%'>
-	
 	<br>
 	
 	<?php for($t =0; $t < 1; $t++){

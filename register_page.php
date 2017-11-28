@@ -77,6 +77,7 @@ require_once('database/database_functions.php');
 			if($flag){
 				
 				create_user($username, $passTest);
+				$result = executeQuery($conn , "INSERT INTO playlist (username, name, playing) VALUES ('$username', '', -1)");
 				Echo "Congratulations On Your New Account! Now Returning To Log In Page <br>";
 				
 				header( "refresh:4;url=login_page.php" );
