@@ -40,7 +40,6 @@ require_once('playlist_class.php');
 		if(isset($_POST['stereo'])){
 			header("Location: fanfair.php");
 		}
-
 	?>
 		
 	<form action="" method="post">
@@ -73,7 +72,6 @@ require_once('playlist_class.php');
 				$name = $_POST['sname'];
 				
 				$vid = $_POST['url'];
-
 				$pos = strpos($vid, "&t=");
 				if ($pos > 0) $vid = substr($vid, 0, $pos);
 				
@@ -88,7 +86,6 @@ require_once('playlist_class.php');
 				
 				if ($vidlen - 11 < 0) $err = "URL is not valid";
 				else $err = $currentPlaylist->add_song($url,$user,$name);
-
 				if ($err) echo "<p class='error'>$err</p>";
 				else echo "<p>$name added.</p>";
 				
@@ -106,17 +103,37 @@ require_once('playlist_class.php');
 			<input type="submit" name="remove" value="Remove Current Song" id="button">
 			<input style="margin-left:20px" type="submit" name="clear" value="Clear Playlist" id="button">
 		</form>';
-
 	
 		if(isset($_POST['remove'])){
 			$currentPlaylist->remove_current_song();
 			echo "<meta http-equiv='refresh' content='0'>";	
 		}
-
 		if(isset($_POST['clear'])){
 			$currentPlaylist->remove_all_songs();
 			echo "<meta http-equiv='refresh' content='0'>";	
 		}
+	?>	
+
+<?php
+	
+		echo '<form action="" method="post" style="margin-top:10px;display:inline-flex;width:100%;justify-content:center">
+		
+			<input style="margin-left:20px" type="submit" name="encore" value="Encore!" id="button">
+		</form>';
+		
+		if(isset($_POST['encore'])){
+			$esong = $currentPlaylist->get_current_song();
+			
+			$eurl = $esong->get_url();
+			$ename = $esong->get_title();
+			$usern = $esong->get_uploader();
+			
+			
+			$currentPlaylist->add_song($eurl,$usern,$ename);
+			//$currentPlaylist->remove_current_song();
+			echo "<meta http-equiv='refresh' content='0'>";	
+		}
+		
 	?>		
 		
 	
@@ -159,9 +176,9 @@ require_once('playlist_class.php');
 		
 		echo "<div class='song'>
 			<div class='songInfo'>
-				<input id='arrow' type='submit' name='$sid'  value='⇧' onclick = 'up($sid)' id = '$sid' style='margin-left:20px;'>
+				<input id='arrow' type='submit' name='$sid'  value='?' onclick = 'up($sid)' id = '$sid' style='margin-left:20px;'>
 		      		<h3 class='votes'> $total </h3>
-		      		<input id='arrow' id='$sid' type='submit' name='$sid'  value='⇩' onclick = 'down($sid)'>
+		      		<input id='arrow' id='$sid' type='submit' name='$sid'  value='?' onclick = 'down($sid)'>
 				<span class='space'> </span>
 	              		<h3 class='songTitle'> $title </h3>
 			</div>
@@ -180,14 +197,14 @@ require_once('playlist_class.php');
 	$sid = $song->get_sid();	
 	
 	if (isset($_POST[(string)$sid])) {
-		if($_POST[(string)$sid] == '⇧'){
+		if($_POST[(string)$sid] == '?'){
 			$conn = conn_start();
 			$pid = $_SESSION['playlist'];
 			$query = "UPDATE playlist_contains_song SET upvotes = upvotes + 1 WHERE pid = $pid AND sid = $sid";
 			executeQuery($conn, $query);
 			header("Refresh:0");
 			
-		}else if($_POST[(string)$sid] == '⇩'){
+		}else if($_POST[(string)$sid] == '?'){
 			$conn = conn_start();
 			$pid = $_SESSION['playlist'];
 			$query = "UPDATE playlist_contains_song SET downvotes = downvotes + 1 WHERE pid = $pid AND sid = $sid";
