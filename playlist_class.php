@@ -79,7 +79,7 @@ class Playlist {
     function update_current_song()
     {
         $conn = conn_start();
-        $result = executeQuery($conn, "SELECT url, title, uploader FROM playlist_contains_song P, song S WHERE pid = $this->pid AND P.sid = S.sid ORDER BY upvotes-downvotes LIMIT 1");
+        $result = executeQuery($conn, "SELECT url, title, uploader FROM playlist_contains_song P, song S WHERE pid = $this->pid AND P.sid = S.sid ORDER BY (upvotes-downvotes) DESC LIMIT 1");
 	$conn->close();
 	
 	if ($result == 1) return;

@@ -64,6 +64,10 @@
 	font-weight: bold;
 }
 
+#arrow:hover {
+	background-color: rgb(84, 131, 125);
+}
+
 .votes {
     color: rgb(239, 203, 165);
     font-weight: bold;
