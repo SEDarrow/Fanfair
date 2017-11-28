@@ -99,7 +99,6 @@ require_once('playlist_class.php');
 		echo '<form action="" method="post" style="margin-left:40%;margin-top:10px;">
 			<input type="submit" name="remove" value="Remove Current Song" id="button">
 		</form>';
-
 	
 		if(isset($_POST['remove'])){
 			$currentPlaylist->remove_current_song();
