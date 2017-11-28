@@ -42,6 +42,13 @@ class Playlist {
 	return $err;
     }
 
+    function remove_all_songs()
+    {
+        $conn = conn_start();
+        $result = executeQuery($conn, "DELETE FROM playlist_contains_song WHERE pid='$this->pid'");
+        $conn->close();
+    }
+
     // song parameter is sid
     function remove_song($sid)
     {
