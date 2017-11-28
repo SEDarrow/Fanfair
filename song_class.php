@@ -27,9 +27,9 @@ class Song {
         $result = executeQuery($conn, "SELECT * FROM song WHERE url='$this->url' AND playlist='$this->pid'");
 
         // add song to database if it is not already there
-        if (sizeof($result) == 0) {
+        if ($result == 1 || sizeof($result) == 0) {
             $result = executeQuery($conn, "INSERT INTO song (url, title, playlist) VALUES ('$this->url', '$song_title', '$this->pid')");
-            $result = executeQuery($conn, "SELECT * FROM song WHERE url='$this->url'");
+            $result = executeQuery($conn, "SELECT * FROM song WHERE url='$this->url' AND playlist='$this->pid'");
         }
 
         $this->sid = $result[0]["sid"];
