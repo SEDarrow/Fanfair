@@ -44,7 +44,7 @@ if ((empty($_SESSION['username'])) || (empty($_SESSION['playlist'])))
 $pid = $_SESSION['playlist'];
 $player = new Playlist($pid);
 
-if ($player->get_owner_username() <> $_SESSION['username'])
+if ($player->get_owner_username() <> $_SESSION['username'] && $_SESSION['token'] == 0)
 	header('Location: Selector_Page.php');
 
 $song_list = $player->get_song_list();
