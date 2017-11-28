@@ -11,85 +11,108 @@ td, th {
 
 </style>
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Fanfair - Log In
-		</title>
-        <style>
-            input {
-                margin-bottom: 0.5em;
-            }
-        </style>
-		<link href="https://fonts.googleapis.com/css?family=Oleo+Script" rel="stylesheet">
-		<link rel="stylesheet" href="style/common.css">
-    </head>
-
-    <body>
-<body>  
-
-</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Fanfair
+	</title>
+    <style>
+        input {
+             margin-bottom: 0.5em;
+        }
+    </style>
+	<link href="https://fonts.googleapis.com/css?family=Oleo+Script" rel="stylesheet">
+	<link rel="stylesheet" href="style/common.css">
+</head>
+	
 <?php
-$vid = '';
+//---------------------------------- ADD DATABASE FUNCTION CALL HERE | REMOVE URL TESTING ---------------------------------------
+$pid = '';
+$sid = '';
+$url = '';
+$player = '';
+$top_song = '';
+$song_list ='';
+$total_songs = '';
+
+session_start();
 require_once('header.php');
-  if (isset($_POST['video'])) $vid = $_POST['video'];
-$vidlen = strlen($vid);
-$url = "nfWlot6h_JM";
-$urlc = 0;
-for ($x = $vidlen - 11; $x < $vidlen && $x > 0; $x++)
-{
-  $url[$urlc] = $vid[$x];
-  $urlc++;
-}
+require_once('playlist_class.php');
+
+if ((empty($_SESSION['username'])) || (empty($_SESSION['playlist'])))
+	header('Location: Selector_Page.php');
+
+$pid = $_SESSION['playlist'];
+$player = new Playlist($pid);
+
+if ($player->get_owner_username() <> $_SESSION['username'])
+	header('Location: Selector_Page.php');
+
+$song_list = $player->get_song_list();
+$total_songs = count($song_list);
+
+if ($total_songs <= 0)
+	header('Location: Playlist_Page_User.php');
+
+$top_song = $player->get_current_song();
+$url = $top_song->get_url();
+$_SESSION['song'] = $top_song->get_sid();
+$sid = $_SESSION['song'];
 
 
-	if($_SESSION['type'] = 'admin' || $_SESSION['type'] = 'user'){
-		echo"<br><div style='text-align:right'><a href='logout_page.php'>LogOut</a> </div><t><br><br><br><br>";   
+$player->remove_song($sid);
 
-	}else{
-		echo"<br><div style='text-align:right'><a href='login_page.php'>LogIn</a> </div><t><br><br><br><br>";
-	}
-	?>
-	<form action="" method="post">
-	<input type="submit" name="vote" value="Voting Page">
-		
-	
-	</form>
-	
-	<?php
-		if(isset($_POST['vote'])){
-			
-				
-					
-					header("Location: Playlist_Page_User.php");
-					
-				
-				
-				 
-			
-		}
-		
-	
-	
-echo"<div style='text-align:center'><iframe width='420' height='315'src='https://www.youtube.com/embed/$url?autoplay=1'></iframe></object></div><hr>'";
-echo"<div style='text-align:center'>";
-echo"<table align='center'><tr><th>Votes</th><th>Song Name</th><th>Duration</th></tr>";
-echo"</table>";
+// --------------------- FIX LOGIN | REGISTER TO SAY LOGOUT IF SESSION IS TRUE -----------------------------------
+echo"<div style='text-align:center'><iframe id='ik_player_iframe'  width='640' height='390'src='https://www.youtube.com/embed/$url?enablejsapi=1&autoplay=1'></iframe></object></div>'";
+echo"<hr><div style='text-align:center'>";
+
 ?>
-  <form method="POST" action="fanfair.php">
-    <p>
-      URL:
-        <input name="video" type="text" value="" size="50" maxlength="50">
-    </p>
+<script>
+  var tag = document.createElement('script');
+  tag.id = 'iframe-demo';
+  tag.src = 'https://www.youtube.com/iframe_api';
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  var player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('ik_player_iframe', {
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+    });
+  }
+  function onPlayerReady(event) {
+    //document.getElementById('ik_player_iframe').style.borderColor = '#FF6D00';
+  }
+  function changeBorderColor(playerStatus) {
+    var color;
+    if (playerStatus == -1) {
+      //color = "#37474F"; // unstarted = gray
+    } else if (playerStatus == 0) {
+      //color = "#FFFF00"; // ended = yellow
+	  document.getElementById("action").submit();
+	  //document.location.reload(true);
+    } else if (playerStatus == 1) {
+      //color = "#33691E"; // playing = green
+    } else if (playerStatus == 2) {
+      //color = "#DD2C00"; // paused = red
+    } else if (playerStatus == 3) {
+      //color = "#AA00FF"; // buffering = purple
+    } else if (playerStatus == 5) {
+      //color = "#FF6DOO"; // video cued = orange
+    }
+    if (color) {
+      document.getElementById('ik_player_iframe').style.borderColor = color;
+    }
+  }
+  function onPlayerStateChange(event) {
+    changeBorderColor(event.data);
+  }
+  //--------------------------- REPLACE FORM WITH DATABASE FUNCTION CALL AT TOP OF THE FILE AND REMOVE TESTING FORM --------------------------------------
+</script>
+
+  <form id="action" method="POST" action="fanfair.php">
+        <input name="go" type="submit" value="SKIP">
   </form>
-  
-  <?php
-  
-  
-  
-  ?>
-  
-  
-  
-  
-  
- </html>
+</html>
