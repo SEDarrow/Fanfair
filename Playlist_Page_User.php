@@ -30,21 +30,15 @@ require_once('playlist_class.php');
 ?>
 
 	<div id="links">
-	<form action="" method="post">
-		<input id="button" type="submit" name="stereo" value="To Stereo Page" style="margin:10px;margin-top:0">
-	</form>
-	
 	<?php
+	
+	if ($_SESSION['username'] == $currentPlaylist->get_owner_username() ||  $_SESSION['token'] == 1)
+		echo '<form action="" method="post">
+			<input id="button" type="submit" name="stereo" value="To Stereo Page" style="margin:10px;margin-top:0">
+		      </form>';
+	
 		if(isset($_POST['stereo'])){
-			
-				$user = $_SESSION['username'];
-				$playlistUsr =  $currentPlaylist->get_owner_username();
-				
-				if($user == $playlistUsr){
-					
-					header("Location: fanfair.php");
-					
-				}
+			header("Location: fanfair.php");
 		}
 	?>
 		
@@ -100,24 +94,16 @@ require_once('playlist_class.php');
 
 	</div>
 
-	<form action="" method="post" style="margin-left:40%;margin-top:10px;">
-		<input type="submit" name="remove" value="Remove Current Song" id="button">
-	</form>
+<?php
+	if ($_SESSION['username'] == $currentPlaylist->get_owner_username() ||  $_SESSION['token'] = 1)
+		echo '<form action="" method="post" style="margin-left:40%;margin-top:10px;">
+			<input type="submit" name="remove" value="Remove Current Song" id="button">
+		</form>';
 
-	<?php
+	
 		if(isset($_POST['remove'])){
-			
-				$user = $_SESSION['username'];
-				$playlistUsr =  $currentPlaylist->get_owner_username();
-				
-				if($user == $playlistUsr){
-					
-					$currentPlaylist->remove_current_song();
-					
-				}
-				
-				 echo "<meta http-equiv='refresh' content='0'>";
-			
+			$currentPlaylist->remove_current_song();
+			echo "<meta http-equiv='refresh' content='0'>";	
 		}
 	?>		
 		
