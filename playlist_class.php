@@ -155,5 +155,10 @@ class Playlist {
 
 	return $result[0]["playing"];
     }
+
+    function set_current_song_vote_max()
+    {
+        $this->current_song->set_current_song_vote_max();
+    }
 }
 ?>

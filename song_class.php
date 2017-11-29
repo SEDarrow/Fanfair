@@ -101,5 +101,12 @@ class Song {
     {
         return $this->sid;
     }
+
+    function set_vote_to_max()
+    {
+        $conn = conn_start();
+        executeQuery($conn, "UPDATE playlist_contains_song SET upvotes=2048, downvotes=0 WHERE pid = '$this->pid' AND sid = '$this->sid'");
+        $conn->close();
+    }
 }
 ?>
