@@ -158,7 +158,7 @@ class Playlist {
 
     function set_current_song_vote_max()
     {
-        $this->current_song->set_current_song_vote_max();
+        $this->current_song->set_vote_to_max();
     }
 }
 ?>
